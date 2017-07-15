@@ -10,7 +10,7 @@ describe Square do
 		end
 
 		context "when given an object as an argument" do 
-			it "it passes" do
+			it "doesn't raise exception" do
 				piece = double("piece")
 				expect { Square.new(piece) }.to_not raise_error
 			end 
