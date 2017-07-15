@@ -1,0 +1,67 @@
+Chess is a game where 2 players play on a 64 square board. Both players will have 16 pieces
+each.
+
+8 pawns
+2 knights
+2 bishops
+2 rooks
+1 queen
+1 king
+
+The idea of the game is for 1 player to trap the other players king (Checkmate) where the king
+no longer has any legal moves.
+
+Players will take turns moving pieces to different squares on the board depending on that pieces
+scope.
+
+- Pawns can move 2 squares forward on their first move
+	* After first move they can only move 1 square forward / can't move backwards
+	* Can capture pieces 1 square diagonal to them
+	* 1 special pawn move is called En Pessant where if a pawn's first move is 2 squares
+		forward and lands next to a pawn that belongs to the opposing player, than the opposing
+		pawn can capture it by moving to the square behind that 2 squared pawn
+
+- Knights can move 1 square over and 2 squares up or down.
+	* the only piece that can jump over other pieces.
+
+- Bishops can move to all sqaures diagonal to it that aren't occupied by another piece.
+
+- Rooks can move to all sqaures up/down/left/right that aren't occupied by another piece.
+
+- Queen can move in all directions to any square that isn't occupied by another piece.
+
+- King can move in all directions to only 1 square that isn't occupied by another piece.
+	* can't move to a sqaure that will put it in check
+
+Pieces are also worth points that should be tracked to show which player has an advantage.
+
+- Pawns    1
+- Knight   3
+- Bishop   3
+- Rook     5
+- Queen    9
+- King     - 
+
+When a piece moves to a square that gives it a direct path to the opposing players king
+it is called check. In this state the opposing player must move the king to escape check.
+If the king as no legal squares to move to escape check than it is Checkmate (Game Over).
+
+A few things to consider are tactics in chess:
+
+- Pin
+	* When a piece cannot move because doing so would put that player's king in check.
+
+- Fork
+	* When a piece is able to attack multiple pieces simultaneously.
+	* This is often used when putting the king in check becuase the king will be forced to move
+	  allowing a capture of another piece.
+
+- Discovered Attack
+	* When a piece moves allowing a piece behind it to put the opposing king in check.
+
+- Skewer
+	* When a piece puts the king in check allowing for that piece to attack an opposing piece
+		behind the king once it moves.
+
+
+
