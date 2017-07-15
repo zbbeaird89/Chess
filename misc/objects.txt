@@ -1,0 +1,50 @@
+- Game
+
+- Board
+
+- Player
+
+- Piece
+	+ points
+	+ move
+
+	* Pawn
+		+ points
+			= 1
+		+ first_turn
+			= true
+		+ move
+
+	* Knight
+		+ points
+			= 3
+		+ possible_moves
+		+ move
+
+	* Bishop
+		+ points
+			= 3
+		+ possible_moves
+		+ move
+
+	* Rook
+		+ points
+			= 5
+		+ possible_moves
+		+ move
+
+	* Queen
+		+ points
+			= 9
+		+ possible_moves
+		+ move
+
+	* King
+		+ check?
+			= false
+		+ possible_moves
+		+ move
+
+- Square
+	+ value
+		= "_" / Piece
