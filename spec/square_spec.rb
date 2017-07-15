@@ -16,4 +16,13 @@ describe Square do
 			end 
 		end
 	end
+
+	describe "#value" do 
+		it "can be updated" do 
+			piece = double("piece")
+			square = Square.new
+			square.value = piece
+			expect(square.value).to eq piece
+		end
+	end
 end
