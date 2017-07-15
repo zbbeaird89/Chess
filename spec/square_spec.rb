@@ -8,5 +8,12 @@ describe Square do
 				expect(square.value).to eq "_"
 			end
 		end
+
+		context "when given an object as an argument" do 
+			it "it passes" do
+				piece = double("piece")
+				expect { Square.new(piece) }.to_not raise_error
+			end 
+		end
 	end
 end
