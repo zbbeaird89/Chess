@@ -9,11 +9,6 @@ describe Piece do
 		it "accepts a grid" do 
 			expect { Piece.new(:grid => mock_grid) }.to_not raise_error
 		end
-
-		it "a piece's current square by default is nil" do 
-			piece = Piece.new(:grid => mock_grid)
-			expect(piece.current_square).to eq nil
-		end
 	end
 
 	describe "#grid" do 
