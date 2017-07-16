@@ -6,8 +6,11 @@ describe Piece do
 										 ["_", "_", "_"]] }
 
 	describe "#initialize" do 
-		it "accepts a grid" do 
-			expect { Piece.new(:grid => mock_grid) }.to_not raise_error
+		context "when given correct arguments" do 
+			it "doesn't raise an exception" do 
+				square = Square.new
+				expect { Piece.new(:grid => mock_grid, :current_square => square) }.to_not raise_error
+			end
 		end
 	end
 
