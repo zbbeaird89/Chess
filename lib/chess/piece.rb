@@ -4,5 +4,6 @@ class Piece
 
 	def initialize(input)
 		@grid = input.fetch(:grid)
+		@current_square = input.fetch(:current_square)
 	end
 end
