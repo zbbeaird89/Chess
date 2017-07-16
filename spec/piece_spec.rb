@@ -1,30 +1,25 @@
 require "spec_helper"
 
 describe Piece do 
+	let(:mock_grid) { [["_", "_", "_"],
+										 ["_", "_", "_"],
+										 ["_", "_", "_"]] }
+
 	describe "#initialize" do 
 		it "accepts a grid" do 
-			grid = [["_", "_", "_"],
-							["_", "_", "_"],
-							["_", "_", "_"]]
-			expect { Piece.new(:grid => grid) }.to_not raise_error
+			expect { Piece.new(:grid => mock_grid) }.to_not raise_error
 		end
 
 		it "a piece's current square by default is nil" do 
-			grid = [["_", "_", "_"],
-							["_", "_", "_"],
-							["_", "_", "_"]]
-			piece = Piece.new(:grid => grid)
+			piece = Piece.new(:grid => mock_grid)
 			expect(piece.current_square).to eq nil
 		end
 	end
 
 	describe "#grid" do 
 		it "can read the grid" do 
-			grid = [["_", "_", "_"],
-							["_", "_", "_"],
-							["_", "_", "_"]]
-			piece = Piece.new(:grid => grid)
-			expect(piece.grid).to eq grid
+			piece = Piece.new(:grid => mock_grid)
+			expect(piece.grid).to eq mock_grid
 		end
 	end
 end
