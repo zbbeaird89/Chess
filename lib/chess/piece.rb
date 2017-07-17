@@ -1,9 +1,9 @@
 class Piece
 	attr_reader :grid
-	attr_accessor :current_square
+	attr_accessor :square
 
 	def initialize(input)
 		@grid = input.fetch(:grid)
-		@current_square = input.fetch(:current_square)
+		@current_square = input.fetch(:square)
 	end
 end
