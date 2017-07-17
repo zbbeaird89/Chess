@@ -64,4 +64,18 @@ A few things to consider are tactics in chess:
 		behind the king once it moves.
 
 
+Board setup will be something like this:
+
+  board.squares["A1"].value = Rook.new(:grid => grid, 
+                                       :square =>board.squares["A1"],
+                                       :player => player1)
+  board.squares["A2"].value = Pawn.new(:grid => grid, 
+                                       :square => board.squares["A2"],
+                                       :player => player1)
+  board.squares["B1"].value = Knight.new(:grid => grid, 
+                                         :square => board.squares["B1"],
+                                         :player => player1)
+  board.squares["B2"].value = Pawn.new(:grid => grid, 
+                                       :square => board.squares["B2"],
+                                       :player => player1)
 
