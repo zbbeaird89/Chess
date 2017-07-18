@@ -32,4 +32,37 @@ describe Piece do
 			expect(piece.square.value).to eq "_"
 		end
 	end
+
+  describe "#move" do 
+    context "when given a Square object" do 
+      it "sets Square's value to Piece" do 
+        new_square  = Square.new
+        curr_piece  = Piece.new(:grid => mock_grid, 
+                                :square => square,
+                                :player => player)
+        curr_piece.move(new_square)
+        expect(new_square.value).to eq curr_piece
+      end
+
+      it "sets Piece's square to Square" do 
+        new_square   = Square.new
+        square.value = Piece.new(:grid => mock_grid, 
+                                 :square => square,
+                                 :player => player)
+        curr_piece   = square.value
+        curr_piece.move(new_square)
+        expect(curr_piece.square).to eq new_square
+      end
+
+      it "sets Piece's original square value to '_'" do 
+        new_square   = Square.new
+        square.value = Piece.new(:grid => mock_grid, 
+                                 :square => square,
+                                 :player => player)
+        curr_piece   = square.value
+        curr_piece.move(new_square)
+        expect(square.value).to eq "_"
+      end
+    end
+  end
 end
