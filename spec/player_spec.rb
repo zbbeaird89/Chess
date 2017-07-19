@@ -13,4 +13,12 @@ describe Player do
       expect(player.name).to eq "Zach"
     end
   end
+
+  describe "#points" do 
+    it "can be updated" do 
+      player = Player.new("Zach")
+      player.points += 3
+      expect(player.points).to eq 3
+    end
+  end
 end
