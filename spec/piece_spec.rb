@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe Piece do 
 	let(:square) { Square.new }
-  let(:player) { double("player") }
+  let(:player) { Player.new("Zach") }
 	let(:mock_grid) { [["_", "_", "_"],
 										 ["_", "_", "_"],
 										 ["_", "_", "_"]] }
@@ -26,12 +26,24 @@ describe Piece do
 		end
 	end
 
-	describe "#current_square" do 
+	describe "#square" do 
 		it "can be updated" do 
 			piece.square = Square.new
 			expect(piece.square.value).to eq "_"
 		end
 	end
+
+  describe "#player" do 
+    it "can read the player" do 
+      expect(piece.player).to eq player
+    end 
+  end
+
+  describe "#points" do 
+    it "can read the points" do 
+      expect(piece.points).to eq 1
+    end
+  end
 
   describe "#move" do 
     context "when given a Square object" do 
@@ -62,6 +74,27 @@ describe Piece do
         curr_piece   = square.value
         curr_piece.move(new_square)
         expect(square.value).to eq "_"
+      end
+
+      context "when moving to square that's occupied" do 
+        it "applies that piece's points to player's points" do 
+          other_player = Player.new("Lauren")
+
+          occupied_square = Square.new
+          occupied_square.value = Piece.new(:grid   => mock_grid,
+                                            :square => occupied_square,
+                                            :player => other_player)
+
+          square.value = Piece.new(:grid   => mock_grid,
+                                   :square => square,
+                                   :player => player)
+
+          curr_piece = square.value
+
+          curr_piece.move(occupied_square)
+
+          expect(curr_piece.player.points).to eq 1
+        end
       end
     end
   end
