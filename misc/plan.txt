@@ -79,3 +79,13 @@ Board setup will be something like this:
                                        :square => board.squares["B2"],
                                        :player => player1)
 
+
+
+
+
+  board
+    @players
+    @player1, @player2 = @players
+    @white_pieces = assign_pieces(@player1)
+    @black_pieces = assign_pieces(@player2)
+
