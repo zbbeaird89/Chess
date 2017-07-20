@@ -1,13 +1,22 @@
 class Piece
-	attr_reader :grid, :player, :points
+	attr_reader :player, :points
 	attr_accessor :square
 
+  @@grid = nil
+
+  def self.link_to_grid(grid)
+    @@grid = grid
+  end
+
 	def initialize(input)
-		@grid   = input.fetch(:grid)
 		@square = input.fetch(:square)
     @player = input.fetch(:player)
     @points = 1
 	end
+
+  def grid
+    @@grid
+  end
 
   def move(to_square)
     from_square = self.square # Stores From square
