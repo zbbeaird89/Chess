@@ -3,6 +3,7 @@ class Board
 
   def initialize
    @grid = default_grid
+   binding.pry
   end
 
   private
