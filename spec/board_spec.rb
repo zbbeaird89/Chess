@@ -14,4 +14,14 @@ describe Board do
       end
     end
   end
+
+  describe "#squares" do
+    context "when given a chess notation" do 
+      it "returns that square" do 
+        board = Board.new
+        square = board.grid[0][0]
+        expect(board.squares["A8"]).to eq square
+      end
+    end
+  end
 end
