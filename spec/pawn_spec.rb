@@ -39,4 +39,11 @@ describe Pawn do
       expect(pawn.square).to eq square
     end
   end
+
+  describe "#player" do 
+    it "can read the player" do 
+      pawn = Pawn.new(:square => square, :player => player)
+      expect(pawn.player).to eq player
+    end
+  end
 end
