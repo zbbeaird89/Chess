@@ -18,4 +18,18 @@ describe Pawn do
       end
     end
   end
+
+  describe "#grid" do 
+    it "can read the grid" do 
+      pawn = Pawn.new(:square => square, :player => player)
+
+      grid = [["", "", ""],
+              ["", "", ""],
+              ["", pawn, ""]]
+
+      Piece.link_to_grid(grid)
+
+      expect(pawn.grid).to eq grid
+    end
+  end
 end
