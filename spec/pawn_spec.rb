@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe Pawn do 
   let(:square) { Square.new }
-  let(:player) { Player.new("Zach") }
+  let(:player) { Player.new("Zach", :white) }
 
   describe "#initialize" do 
     context "when given correct number of arguments" do 
@@ -21,13 +21,13 @@ describe Pawn do
 
   describe "#grid" do 
     it "can read the grid" do 
-      pawn = Pawn.new(:square => square, :player => player)
-
       grid = [["", "", ""],
               ["", "", ""],
-              ["", pawn, ""]]
+              ["", "", ""]]
 
       Piece.link_to_grid(grid)
+
+      pawn = Pawn.new(:square => square, :player => player)
 
       expect(pawn.grid).to eq grid
     end
@@ -46,4 +46,27 @@ describe Pawn do
       expect(pawn.player).to eq player
     end
   end
+
+  describe "#moves" do 
+    it "contains legal moves" do 
+      grid = [[Square.new, Square.new, Square.new],
+              [Square.new, Square.new, Square.new],
+              [Square.new, square, Square.new]]
+
+      Piece.link_to_grid(grid)
+
+      pawn = Pawn.new(:square => square, :player => player)
+
+      grid[2][1].value = pawn #Pawn's starting position for this example
+
+      legal_moves = [grid[0][1], grid[1][1]]
+
+      pawn.find_moves(square, player)
+
+      expect(pawn.moves).to match_array(legal_moves)
+    end
+  end
 end
+
+
+# Fix square

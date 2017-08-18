@@ -1,8 +1,8 @@
 require "spec_helper"
 
 describe Game do 
-  let(:player1) { Player.new("Zach") }
-  let(:player2) { Player.new("Lauren") }
+  let(:player1) { Player.new("Zach", :white) }
+  let(:player2) { Player.new("Lauren", :black) }
   let(:players) { [player1, player2] }
 
   describe "#initialize" do 

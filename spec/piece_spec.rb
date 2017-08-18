@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe Piece do 
 	let(:square) { Square.new }
-  let(:player) { Player.new("Zach") }
+  let(:player) { Player.new("Zach", :white) }
   let(:piece) { Piece.new(:square => square, :player => player) }
  
   let(:mock_grid) { [["_", "_", "_"],
@@ -70,7 +70,7 @@ describe Piece do
 
       context "when moving to square that's occupied" do 
         it "applies that piece's points to player's points" do 
-          other_player = Player.new("Lauren")
+          other_player = Player.new("Lauren", :black)
 
           occupied_square = Square.new
           occupied_square.value = Piece.new(:square => occupied_square, :player => other_player)
