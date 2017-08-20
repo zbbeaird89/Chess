@@ -151,6 +151,7 @@ describe Pawn do
         expect(pawn.move(grid[0][2])).to eq false
       end
     end
+    
     it "moves piece to a legal square" do 
       grid = [[Square.new, Square.new, Square.new],
               [Square.new, Square.new, Square.new],

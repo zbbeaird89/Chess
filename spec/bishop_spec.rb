@@ -21,18 +21,67 @@ describe Bishop do
   end
 
   describe "#grid" do 
+    it "can read the grid" do 
+      grid = [["", "", ""],
+              ["", "", ""],
+              ["", "", ""]]
 
+      Piece.link_to_grid(grid)
+
+      bishop = Bishop.new(:square => square, :player => player)
+
+      expect(bishop.grid).to eq grid
+    end
   end
 
   describe "#square" do 
+    it "can read the square" do 
+      grid = [["", "", ""],
+              ["", "", ""],
+              ["", "", ""]]
 
+      Piece.link_to_grid(grid)
+
+      bishop = Bishop.new(:square => square, :player => player)
+
+      expect(bishop.square).to eq square
+    end
   end
 
   describe "#player" do 
+    it "can read the player" do 
+      grid = [["", "", ""],
+              ["", "", ""],
+              ["", "", ""]]
 
+      Piece.link_to_grid(grid)
+
+      bishop = Bishop.new(:square => square, :player => player)
+
+      expect(bishop.player).to eq player
+    end
   end
 
   describe "#moves" do 
-  
+    it "contains legal moves" do 
+      grid = [[Square.new, Square.new, Square.new],
+              [Square.new, square, Square.new],
+              [Square.new, Square.new, Square.new]]
+      
+      #Has all pieces link to the grid
+      Piece.link_to_grid(grid)
+
+      bishop = Bishop.new(:square => square, :player => player)
+
+      #Bishop's starting position for this example
+      grid[1][1].value = bishop 
+
+      legal_moves = [grid[0][0], grid[0][2], grid[2][0], grid[2][2]]
+
+      #gathers all legal moves for the bishop instance(stores result in @moves)
+      bishop.find_moves
+
+      expect(bishop.moves).to match_array(legal_moves)
+    end
   end
 end
