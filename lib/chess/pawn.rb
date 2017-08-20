@@ -6,9 +6,7 @@ class Pawn < Piece
   end
 
   def find_moves
-    y, x = grid.coordinates(@square)
-    @moves = white_moves(y, x) if @player.color == :white
-    @moves = black_moves(y, x) if @player.color == :black
+    super
   end
 
   private
