@@ -9,6 +9,11 @@ class Pawn < Piece
     super
   end
 
+  def move(to_square)
+    return false unless @moves.include?(to_square)
+    super(to_square) 
+  end 
+
   private
 
     def white_moves(y, x)

@@ -130,7 +130,65 @@ describe Pawn do
       expect(pawn.moves).to match_array(legal_moves)
     end
   end
+
+  describe "#move" do 
+    context "when given illegal square" do 
+      it "returns false" do 
+        grid = [[Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new],
+                [Square.new, square, Square.new]]
+        
+        Piece.link_to_grid(grid)
+
+        pawn = Pawn.new(:square => square, :player => player)
+
+        square.value = pawn 
+
+        legal_moves = [grid[0][1], grid[1][1]]
+
+        pawn.find_moves
+
+        expect(pawn.move(grid[0][2])).to eq false
+      end
+    end
+    it "moves piece to a legal square" do 
+      grid = [[Square.new, Square.new, Square.new],
+              [Square.new, Square.new, Square.new],
+              [Square.new, square, Square.new]]
+      
+      Piece.link_to_grid(grid)
+
+      pawn = Pawn.new(:square => square, :player => player)
+
+      square.value = pawn 
+
+      legal_moves = [grid[0][1], grid[1][1]]
+
+      pawn.find_moves
+
+      pawn.move(grid[0][1])
+
+      expect(grid[0][1].value).to eq pawn
+    end
+
+    it "piece's square changes as expected" do 
+      grid = [[Square.new, Square.new, Square.new],
+              [Square.new, Square.new, Square.new],
+              [Square.new, square, Square.new]]
+      
+      Piece.link_to_grid(grid)
+
+      pawn = Pawn.new(:square => square, :player => player)
+
+      square.value = pawn 
+
+      legal_moves = [grid[0][1], grid[1][1]]
+
+      pawn.find_moves
+
+      pawn.move(grid[0][1])
+
+      expect(pawn.square).to eq grid[0][1]
+    end
+  end
 end
-
-
-# Fix square
