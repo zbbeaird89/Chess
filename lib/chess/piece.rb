@@ -32,11 +32,15 @@ class Piece
 
   def find_moves
     y, x = grid.coordinates(@square)
-    @moves = white_moves(y, x) if @player.color == :white
-    @moves = black_moves(y, x) if @player.color == :black
+    @moves = pawn_moves(y, x) if self.is_a?(Pawn)
   end
 
   private
+
+    def pawn_moves(y, x)
+      return white_moves(y, x) if @player.color == :white
+      return black_moves(y, x) if @player.color == :black
+    end
 
     def capture_piece(player, piece)
       player.points += piece.points
