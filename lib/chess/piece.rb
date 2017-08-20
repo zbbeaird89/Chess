@@ -30,6 +30,12 @@ class Piece
     self.first_move = false
   end
 
+  def find_moves
+    y, x = grid.coordinates(@square)
+    @moves = white_moves(y, x) if @player.color == :white
+    @moves = black_moves(y, x) if @player.color == :black
+  end
+
   private
 
     def capture_piece(player, piece)
