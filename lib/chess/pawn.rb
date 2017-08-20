@@ -1,5 +1,3 @@
-require "pry"
-
 class Pawn < Piece
   attr_accessor :moves
 
@@ -7,27 +5,48 @@ class Pawn < Piece
     super(input)
   end
 
-  def find_moves(square, player)
-    y, x = grid.coordinates(square)
-    @moves = white_moves(y, x) if player.color == :white
+  def find_moves
+    y, x = grid.coordinates(@square)
+    @moves = white_moves(y, x) if @player.color == :white
+    @moves = black_moves(y, x) if @player.color == :black
   end
 
-  def white_moves(y, x)
-    moves = []
-    forward_one = grid[y - 1][x]
-    forward_two = grid[y - 2][x]
-    left_diag   = grid[y - 1][x - 1]
-    right_diag  = grid[y - 1][x + 1]
+  private
 
-    moves << forward_two if first_move && forward_two.value == "_"
+    def white_moves(y, x)
+      moves = []
+      forward_one = grid[y - 1][x]
+      forward_two = grid[y - 2][x]
+      left_diag   = grid[y - 1][x - 1]
+      right_diag  = grid[y - 1][x + 1]
 
-    moves << forward_one if forward_one.value == "_"
+      moves << forward_two if first_move && forward_two.value == "_"
 
-    moves << left_diag if left_diag.value.is_a?(Piece) && left_diag.value.player.color == :black
+      moves << forward_one if forward_one.value == "_"
 
-    moves << right_diag if right_diag.value.is_a?(Piece) && right_diag.value.player.color == :black
+      moves << left_diag if left_diag.value.is_a?(Piece) && left_diag.value.player.color == :black
 
-    return moves
-  end
+      moves << right_diag if right_diag.value.is_a?(Piece) && right_diag.value.player.color == :black
+
+      return moves
+    end
+
+    def black_moves(y, x)
+      moves = []
+      forward_one = grid[y + 1][x]
+      forward_two = grid[y + 2][x]
+      left_diag   = grid[y + 1][x - 1]
+      right_diag  = grid[y + 1][x + 1]
+
+      moves << forward_two if first_move && forward_two.value == "_"
+
+      moves << forward_one if forward_one.value == "_"
+
+      moves << left_diag if left_diag.value.is_a?(Piece) && left_diag.value.player.color == :white
+
+      moves << right_diag if right_diag.value.is_a?(Piece) && right_diag.value.player.color == :white
+
+      return moves
+    end
 
 end
