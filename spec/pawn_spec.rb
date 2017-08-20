@@ -14,7 +14,7 @@ describe Pawn do
     end
 
     context "when given wrong number of arguments" do 
-      it "raises 'ArgumentError'" do 
+      it "raises 'KeyError'" do 
         expect { Pawn.new(:player => player) }.to raise_error(KeyError)
       end
     end
