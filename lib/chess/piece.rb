@@ -34,9 +34,9 @@ class Piece
     y, x = grid.coordinates(@square)
     @moves = pawn_moves(y, x) if self.is_a?(Pawn)
 
-    #All subclasses of Piece have their own legal_moves method
+    #All subclasses of Piece (other than Pawn) have their own legal_moves method
     #This line of code responds to whatever Piece is doing the calling
-    @moves = legal_squares(y, x)
+    @moves = legal_squares(y, x) unless self.is_a?(Pawn)
   end
 
   private
