@@ -1,6 +1,6 @@
 class Piece
 	attr_reader :player, :points
-	attr_accessor :square, :first_move
+	attr_accessor :square, :first_move, :moves
 
   @@grid = nil
 

@@ -63,25 +63,36 @@ describe Bishop do
   end
 
   describe "#moves" do 
-    it "contains legal moves" do 
-      grid = [[Square.new, Square.new, Square.new],
-              [Square.new, square, Square.new],
-              [Square.new, Square.new, Square.new]]
-      
-      #Has all pieces link to the grid
-      Piece.link_to_grid(grid)
+    context "when all directions contain only empty squares" do 
+      it "contains legal squares" do 
+        grid = [[Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new, square, Square.new, Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new]]
+        
+        #Has all pieces link to the grid
+        Piece.link_to_grid(grid)
 
-      bishop = Bishop.new(:square => square, :player => player)
+        bishop = Bishop.new(:square => square, :player => player)
 
-      #Bishop's starting position for this example
-      grid[1][1].value = bishop 
+        #Bishop's starting position for this example
+        grid[3][3].value = bishop 
 
-      legal_moves = [grid[0][0], grid[0][2], grid[2][0], grid[2][2]]
+        legal_moves = [grid[0][0], grid[1][1], grid[2][2], grid[4][4], grid[5][5], grid[6][6],
+                       grid[7][7], grid[4][2], grid[5][1], grid[6][0], grid[2][4], grid[1][5],
+                       grid[0][6]]
 
-      #gathers all legal moves for the bishop instance(stores result in @moves)
-      bishop.find_moves
+        #gathers all legal moves for the bishop instance(stores result in @moves)
+        bishop.find_moves
 
-      expect(bishop.moves).to match_array(legal_moves)
+        expect(bishop.moves).to match_array(legal_moves)
+      end
     end
   end
 end
+
+#3, 3
