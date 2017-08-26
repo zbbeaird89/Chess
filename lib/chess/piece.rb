@@ -1,5 +1,5 @@
 class Piece
-	attr_reader :player, :points
+	attr_reader :player, :points, :color
 	attr_accessor :square, :first_move, :moves
 
   @@grid = nil
@@ -11,7 +11,8 @@ class Piece
 	def initialize(input)
 		@square        = input.fetch(:square)
     @player        = input.fetch(:player)
-    @first_move = true
+    @color         = input.fetch(:color)
+    @first_move    = true
     @points        = 1
 	end
 

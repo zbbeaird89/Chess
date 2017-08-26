@@ -3,7 +3,9 @@ require "spec_helper"
 describe Piece do 
 	let(:square) { Square.new }
   let(:player) { Player.new("Zach", :white) }
-  let(:piece) { Piece.new(:square => square, :player => player) }
+  let(:piece)  { Piece.new(:square => square, 
+                           :player => player,
+                           :color  => player.color) }
  
   let(:mock_grid) { [["_", "_", "_"],
                      ["_", "_", "_"],
@@ -12,7 +14,9 @@ describe Piece do
 	describe "#initialize" do 
 		context "when given correct arguments" do 
 			it "doesn't raise an exception" do 
-				expect { Piece.new(:square => square, :player => player) }.to_not raise_error
+				expect { Piece.new(:square => square, 
+                           :player => player,
+                           :color  => player.color) }.to_not raise_error
 			end
 		end
 	end
@@ -47,14 +51,18 @@ describe Piece do
     context "when given a Square object" do 
       it "sets Square's value to Piece" do 
         new_square  = Square.new
-        curr_piece  = Piece.new(:square => square, :player => player)
+        curr_piece  = Piece.new(:square => square, 
+                                :player => player,
+                                :color  => player.color)
         curr_piece.move(new_square)
         expect(new_square.value).to eq curr_piece
       end
 
       it "sets Piece's square to Square" do 
         new_square   = Square.new
-        square.value = Piece.new(:square => square, :player => player)
+        square.value = Piece.new(:square => square, 
+                                 :player => player,
+                                 :color  => player.color)
         curr_piece   = square.value
         curr_piece.move(new_square)
         expect(curr_piece.square).to eq new_square
@@ -62,7 +70,9 @@ describe Piece do
 
       it "sets Piece's original square value to '_'" do 
         new_square   = Square.new
-        square.value = Piece.new(:square => square, :player => player)
+        square.value = Piece.new(:square => square, 
+                                 :player => player,
+                                 :color  => player.color)
         curr_piece   = square.value
         curr_piece.move(new_square)
         expect(square.value).to eq "_"
@@ -73,9 +83,13 @@ describe Piece do
           other_player = Player.new("Lauren", :black)
 
           occupied_square = Square.new
-          occupied_square.value = Piece.new(:square => occupied_square, :player => other_player)
+          occupied_square.value = Piece.new(:square => occupied_square, 
+                                            :player => other_player,
+                                            :color  => other_player.color)
 
-          square.value = Piece.new(:square => square, :player => player)
+          square.value = Piece.new(:square => square, 
+                                   :player => player,
+                                   :color  => player.color)
 
           curr_piece = square.value
 

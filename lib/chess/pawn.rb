@@ -27,9 +27,9 @@ class Pawn < Piece
 
       moves << forward_one if forward_one.value == "_"
 
-      moves << left_diag if left_diag.value.is_a?(Piece) && left_diag.value.player.color == :black
+      moves << left_diag if left_diag.value.is_a?(Piece) && left_diag.value.color == :black
 
-      moves << right_diag if right_diag.value.is_a?(Piece) && right_diag.value.player.color == :black
+      moves << right_diag if right_diag.value.is_a?(Piece) && right_diag.value.color == :black
 
       return moves
     end
@@ -45,10 +45,10 @@ class Pawn < Piece
 
       moves << forward_one if forward_one.value == "_"
 
-      moves << left_diag if left_diag.value.is_a?(Piece) && left_diag.value.player.color == :white
+      moves << left_diag if left_diag.value.is_a?(Piece) && left_diag.value.color == :white
 
-      moves << right_diag if right_diag.value.is_a?(Piece) && right_diag.value.player.color == :white
-
+      moves << right_diag if right_diag.value.is_a?(Piece) && right_diag.value.color == :white
+    
       return moves
     end
 

@@ -9,7 +9,8 @@ describe Pawn do
     context "when given correct number of arguments" do 
       it "doesn't raise exception" do 
         expect { Pawn.new(:square => square,
-                          :player => player) }.to_not raise_error
+                          :player => player,
+                          :color  => player.color) }.to_not raise_error
       end
     end
 
@@ -28,7 +29,9 @@ describe Pawn do
 
       Piece.link_to_grid(grid)
 
-      pawn = Pawn.new(:square => square, :player => player)
+      pawn = Pawn.new(:square => square, 
+                      :player => player,
+                      :color  => player.color)
 
       expect(pawn.grid).to eq grid
     end
@@ -36,14 +39,18 @@ describe Pawn do
 
   describe "#square" do 
     it "can read the square" do 
-      pawn = Pawn.new(:square => square, :player => player)
+      pawn = Pawn.new(:square => square, 
+                      :player => player,
+                      :color  => player.color)
       expect(pawn.square).to eq square
     end
   end
 
   describe "#player" do 
     it "can read the player" do 
-      pawn = Pawn.new(:square => square, :player => player)
+      pawn = Pawn.new(:square => square, 
+                      :player => player,
+                      :color  => player.color)
       expect(pawn.player).to eq player
     end
   end
@@ -57,7 +64,9 @@ describe Pawn do
       #Has all pieces link to the grid
       Piece.link_to_grid(grid)
 
-      pawn = Pawn.new(:square => square, :player => player)
+      pawn = Pawn.new(:square => square, 
+                      :player => player,
+                      :color  => player.color)
 
       #Pawn's starting position for this example
       grid[2][1].value = pawn 
@@ -77,7 +86,9 @@ describe Pawn do
 
       Piece.link_to_grid(grid)
 
-      pawn = Pawn.new(:square => square, :player => other_player)
+      pawn = Pawn.new(:square => square, 
+                      :player => player,
+                      :color  => player.color)
 
       square.value = pawn #Pawn's starting position for this example
 
@@ -94,11 +105,15 @@ describe Pawn do
               [Square.new, square, Square.new]]
 
       #Sets left diagonal to contain enemy piece
-      grid[1][0].value = Piece.new(:square => grid[1][0], :player => other_player)
+      grid[1][0].value = Piece.new(:square => grid[1][0], 
+                                   :player => other_player,
+                                   :color  => other_player.color)
 
       Piece.link_to_grid(grid)
 
-      pawn = Pawn.new(:square => square, :player => player)
+      pawn = Pawn.new(:square => square, 
+                      :player => player,
+                      :color  => player.color)
 
       square.value = pawn 
 
@@ -115,11 +130,15 @@ describe Pawn do
               [Square.new, Square.new, Square.new]]
 
       #Sets left diagonal to contain enemy piece
-      grid[1][0].value = Piece.new(:square => grid[1][0], :player => player)
+      grid[1][0].value = Piece.new(:square => grid[1][0], 
+                                   :player => player,
+                                   :color  => player.color)
 
       Piece.link_to_grid(grid)
 
-      pawn = Pawn.new(:square => square, :player => other_player)
+      pawn = Pawn.new(:square => square, 
+                      :player => other_player,
+                      :color  => other_player.color)
 
       square.value = pawn 
 
@@ -140,7 +159,9 @@ describe Pawn do
         
         Piece.link_to_grid(grid)
 
-        pawn = Pawn.new(:square => square, :player => player)
+        pawn = Pawn.new(:square => square, 
+                        :player => player,
+                        :color  => player.color)
 
         square.value = pawn 
 
@@ -159,7 +180,9 @@ describe Pawn do
       
       Piece.link_to_grid(grid)
 
-      pawn = Pawn.new(:square => square, :player => player)
+      pawn = Pawn.new(:square => square, 
+                      :player => player,
+                      :color  => player.color)
 
       square.value = pawn 
 
@@ -179,7 +202,9 @@ describe Pawn do
       
       Piece.link_to_grid(grid)
 
-      pawn = Pawn.new(:square => square, :player => player)
+      pawn = Pawn.new(:square => square, 
+                      :player => player,
+                      :color  => player.color)
 
       square.value = pawn 
 
