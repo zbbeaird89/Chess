@@ -4,6 +4,7 @@ require "chess/player.rb"
 require "chess/board.rb"
 require "chess/pawn.rb"
 require "chess/bishop.rb"
+require "chess/rook.rb"
 require "chess/game.rb"
 require "chess/core_extensions.rb"
 
