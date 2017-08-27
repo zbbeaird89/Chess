@@ -39,12 +39,6 @@ describe Rook do
 
   describe "#square" do 
     it "can read the square" do 
-      grid = [["", "", ""],
-              ["", "", ""],
-              ["", "", ""]]
-
-      Piece.link_to_grid(grid)
-
       rook = Rook.new(:square => square, 
                       :player => player,
                       :color  => player.color)
@@ -55,17 +49,21 @@ describe Rook do
 
   describe "#player" do 
     it "can read the player" do 
-      grid = [["", "", ""],
-              ["", "", ""],
-              ["", "", ""]]
-
-      Piece.link_to_grid(grid)
-
       rook = Rook.new(:square => square, 
                       :player => player,
                       :color  => player.color)
 
       expect(rook.player).to eq player
+    end
+  end
+
+  describe "#points" do 
+    it "can read points" do 
+      rook = Rook.new(:square => square,
+                      :player => player,
+                      :color  => player.color)
+
+      expect(rook.points).to eq 5
     end
   end
 

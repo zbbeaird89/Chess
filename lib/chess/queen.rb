@@ -2,6 +2,7 @@ class Queen < Piece
 
   def initialize(input) 
     super(input)
+    @points = 9
   end
 
   def find_moves

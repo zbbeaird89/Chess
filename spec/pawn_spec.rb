@@ -55,6 +55,15 @@ describe Pawn do
     end
   end
 
+  describe "#points" do 
+    it "can read points" do 
+      pawn = Pawn.new(:square => square, 
+                      :player => player,
+                      :color  => player.color)
+      expect(pawn.points).to eq 1
+    end
+  end
+
   describe "#moves" do 
     it "contains legal moves for white player" do 
       grid = [[Square.new, Square.new, Square.new],

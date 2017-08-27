@@ -2,6 +2,7 @@ class Bishop < Piece
 
   def initialize(input)
     super(input)
+    @points = 3
   end
 
   def find_moves

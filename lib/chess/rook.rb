@@ -2,6 +2,7 @@ class Rook < Piece
 
   def initialize(input) 
     super(input)
+    @points = 5
   end
 
   def find_moves

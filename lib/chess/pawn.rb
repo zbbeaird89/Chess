@@ -1,6 +1,5 @@
 class Pawn < Piece
-  attr_accessor :moves
-
+  
   def initialize(input)
     super(input)
   end

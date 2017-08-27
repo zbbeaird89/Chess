@@ -39,12 +39,6 @@ describe Bishop do
 
   describe "#square" do 
     it "can read the square" do 
-      grid = [["", "", ""],
-              ["", "", ""],
-              ["", "", ""]]
-
-      Piece.link_to_grid(grid)
-
       bishop = Bishop.new(:square => square, 
                           :player => player,
                           :color  => player.color)
@@ -54,18 +48,22 @@ describe Bishop do
   end
 
   describe "#player" do 
-    it "can read the player" do 
-      grid = [["", "", ""],
-              ["", "", ""],
-              ["", "", ""]]
-
-      Piece.link_to_grid(grid)
-
+    it "can read the player" do   
       bishop = Bishop.new(:square => square, 
                           :player => player,
                           :color  => player.color)
 
       expect(bishop.player).to eq player
+    end
+  end
+
+  describe "#points" do 
+    it "can read points" do   
+      bishop = Bishop.new(:square => square, 
+                          :player => player,
+                          :color  => player.color)
+
+      expect(bishop.points).to eq 3
     end
   end
 

@@ -41,10 +41,10 @@ describe Piece do
     end 
   end
 
-  describe "#points" do 
-    it "can read the points" do 
+  describe "#player" do 
+    it "can read points" do 
       expect(piece.points).to eq 1
-    end
+    end 
   end
 
   describe "#move" do 
