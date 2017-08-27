@@ -33,6 +33,7 @@ class Piece
 
   def find_moves
     y, x = grid.coordinates(@square)
+
     @moves = pawn_moves(y, x) if self.is_a?(Pawn)
 
     #All subclasses of Piece (other than Pawn) have their own legal_moves method
@@ -58,7 +59,8 @@ class Piece
       @directions.each do |direction|
         next_y = y + direction[0]
         next_x = x + direction[1]
-        squares << gather_squares(next_y, next_x, direction)
+        squares << gather_squares(next_y, next_x, direction) unless self.is_a?(Knight)
+        squares << knight_squares(next_y, next_x) if self.is_a?(Knight)
       end
 
       return squares.flatten
@@ -82,6 +84,22 @@ class Piece
 
         #Recursively checks next square
         return gather_squares(next_y, next_x, direction) << square
+      end
+    end
+
+    def knight_squares(y, x)
+      #Ensures we don't go off of the board   
+      unless y < 0 || y > 7 || x < 0 || x > 7
+
+        square = grid[y][x]
+  
+        return square if square.value.is_a?(Piece) && square.value.color != self.color
+      
+        return square if square.value == "_"
+
+        #This value will be flattened in its squares array
+        #Without this line the return value would be nil causing a bug
+        return [] if square.value.is_a?(Piece) && square.value.color == self.color
       end
     end
 end
