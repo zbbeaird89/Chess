@@ -87,7 +87,7 @@ describe Bishop do
                             :color  => player.color)
 
         #Bishop's starting position for this example
-        grid[3][3].value = bishop 
+        square.value = bishop 
 
         legal_moves = [grid[0][0], grid[1][1], grid[2][2], grid[4][4], grid[5][5], grid[6][6],
                        grid[7][7], grid[4][2], grid[5][1], grid[6][0], grid[2][4], grid[1][5],
@@ -134,7 +134,7 @@ describe Bishop do
                             :color  => player.color)
 
         #Bishop's starting position for this example
-        grid[3][3].value = bishop 
+        square.value = bishop 
 
         legal_moves = [grid[0][0], grid[1][1], grid[2][2], grid[4][4], grid[5][5],
                        grid[4][2]]
@@ -147,5 +147,3 @@ describe Bishop do
     end
   end
 end
-
-#3, 3

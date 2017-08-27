@@ -87,7 +87,7 @@ describe Rook do
                         :color  => player.color)
 
         #Rook's starting position for this example
-        grid[3][3].value = rook 
+        square.value = rook 
 
         legal_moves = [grid[2][3], grid[1][3], grid[0][3], grid[4][3], grid[5][3],
                        grid[6][3], grid[7][3], grid[3][4], grid[3][5], grid[3][6],
@@ -132,7 +132,7 @@ describe Rook do
                         :color  => player.color)
 
         #Rooks's starting position for this example
-        grid[3][3].value = rook 
+        square.value = rook 
 
         legal_moves = [grid[0][3], grid[1][3], grid[2][3], grid[3][2], grid[3][4],
                        grid[3][5]]

@@ -78,7 +78,7 @@ describe Pawn do
                       :color  => player.color)
 
       #Pawn's starting position for this example
-      grid[2][1].value = pawn 
+      square.value = pawn 
 
       legal_moves = [grid[0][1], grid[1][1]]
 

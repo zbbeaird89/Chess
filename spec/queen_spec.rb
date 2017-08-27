@@ -87,7 +87,7 @@ describe Queen do
                           :color  => player.color)
 
         #queen's starting position for this example
-        grid[3][3].value = queen 
+        square.value = queen 
 
         legal_moves = [grid[3][2], grid[3][1], grid[3][0], grid[2][2], grid[1][1], grid[0][0],
                        grid[2][3], grid[1][3], grid[0][3], grid[2][4], grid[1][5], grid[0][6],
@@ -146,7 +146,7 @@ describe Queen do
                           :color  => player.color)
 
         #queens's starting position for this example
-        grid[3][3].value = queen 
+        square.value = queen 
 
         legal_moves = [grid[3][2], grid[0][3], grid[1][3], grid[2][3], grid[3][4],
                        grid[3][5], grid[1][1], grid[2][2], grid[1][5], grid[2][4],
