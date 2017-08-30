@@ -1,7 +1,9 @@
 class Square
-	attr_accessor :value
+	attr_accessor :value, :attacked
+  alias_method  :attacked?, :attacked
 
 	def initialize(input = "_")
-		@value = input
+		@value     = input
+    @attacked = false
 	end
 end

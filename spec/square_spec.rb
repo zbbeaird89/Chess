@@ -25,4 +25,12 @@ describe Square do
 			expect(square.value).to eq piece
 		end
 	end
+
+  describe "#attacked?" do 
+    it "can be updated and read" do 
+      square = Square.new
+      square.attacked = true
+      expect(square.attacked?).to eq true
+    end
+  end
 end
