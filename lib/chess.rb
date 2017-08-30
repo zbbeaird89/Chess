@@ -7,6 +7,7 @@ require "chess/bishop.rb"
 require "chess/knight.rb"
 require "chess/rook.rb"
 require "chess/queen.rb"
+require "chess/king.rb"
 require "chess/game.rb"
 require "chess/core_extensions.rb"
 
