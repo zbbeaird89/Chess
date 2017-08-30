@@ -34,11 +34,11 @@ class Piece
   def find_moves
     y, x = grid.coordinates(@square)
 
-    @moves = pawn_moves(y, x) if self.is_a?(Pawn)
+    squares = self.is_a?(Pawn) ? pawn_moves(y, x) : legal_squares(y, x)
 
-    #All subclasses of Piece (other than Pawn) have their own legal_moves method
-    #This line of code responds to whatever Piece is doing the calling
-    @moves = legal_squares(y, x) unless self.is_a?(Pawn)
+    discard_squares(squares)
+
+    @moves = squares
   end
 
   private
@@ -74,17 +74,18 @@ class Piece
       return [] if y < 0 || y > 7 || x < 0 || x > 7
 
       square = grid[y][x]
+
+      square.attacked = true
       
       if square.value.is_a?(Piece) 
         #Base case if a piece is found
         return [] if square.value.color == self.color
-        #If square has an opposite color piece then include that square in the returned array
+        
         return [square] if square.value.color != self.color
-      else
+      else   
         next_y = y + direction[0]
         next_x = x + direction[1]
 
-        #Recursively checks next square
         return gather_squares(next_y, next_x, direction) << square
       end
     end
@@ -103,5 +104,10 @@ class Piece
         #Without this line the return value would be nil causing a bug
         return [] if square.value.is_a?(Piece) && square.value.color == self.color
       end
+    end
+
+    def discard_squares(squares)  
+      peaceful_squares = @moves - squares
+      peaceful_squares.each { |sq| sq.attacked = false }
     end
 end
