@@ -68,7 +68,7 @@ describe King do
   end
 
   describe "#check?" do 
-    context "when king is in check by a rook" do 
+    context "when king is in check" do 
       it "returns true" do 
         grid = [[Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
                 [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
@@ -87,10 +87,13 @@ describe King do
 
         square.value = king
 
-        grid[0][3] = Rook.new(:square => square,
-                              :player => player,
-                              :color  => player.color)
+        grid[0][3].value = Rook.new(:square => grid[0][3],
+                                    :player => other_player,
+                                    :color  => other_player.color)
+        rook = grid[0][3].value
 
+        rook.find_moves
+    
         expect(king.check?).to eq true
       end
     end

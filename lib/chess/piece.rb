@@ -13,6 +13,7 @@ class Piece
     @player        = input.fetch(:player)
     @color         = input.fetch(:color)
     @first_move    = true
+    @moves         = []
     @points        = 1
 	end
 
@@ -35,7 +36,7 @@ class Piece
     y, x = grid.coordinates(@square)
 
     squares = self.is_a?(Pawn) ? pawn_moves(y, x) : legal_squares(y, x)
-
+    
     discard_squares(squares)
 
     @moves = squares
@@ -62,7 +63,7 @@ class Piece
         
         squares << gather_squares(next_y, next_x, direction) unless self.is_a?(Knight)
         squares << knight_squares(next_y, next_x) if self.is_a?(Knight)
-        #squares << king_squares(next_y, next_x) if self.is_a?(King)
+        squares << king_squares(next_y, next_x) if self.is_a?(King)
       end
 
       return squares.flatten
