@@ -33,4 +33,18 @@ describe Square do
       expect(square.attacked?).to eq true
     end
   end
+
+  describe "#attacked_by" do 
+    it "returns the piece that is attacking the square" do 
+      square = Square.new
+
+      rook = Rook.new(:square => square,
+                      :player => Player.new("Zach", :white),
+                      :color  => :white)
+
+      square.attacked_by << rook
+
+      expect(square.attacked_by).to include rook
+    end
+  end
 end
