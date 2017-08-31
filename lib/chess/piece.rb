@@ -36,11 +36,14 @@ class Piece
     y, x = grid.coordinates(@square)
 
     squares = self.is_a?(Pawn) ? pawn_moves(y, x) : legal_squares(y, x)
-    
+
     discard_squares(squares)
+
+    assign_attacker(squares)
 
     @moves = squares
   end
+
 
   private
 
@@ -109,6 +112,11 @@ class Piece
 
     def discard_squares(squares)  
       peaceful_squares = @moves - squares
-      peaceful_squares.each { |sq| sq.attacked = false }
+
+      peaceful_squares.each { |sq| sq.attacked_by.delete(self) }
+    end
+
+    def assign_attacker(squares)    
+      squares.each { |sq| sq.attacked_by << self  }
     end
 end

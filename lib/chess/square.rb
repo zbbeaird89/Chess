@@ -4,7 +4,7 @@ class Square
 
 	def initialize(input = "_")
 		@value       = input
-    @attacked    = false
     @attacked_by = []
+    @attacked    = @attacked_by.empty? ? false : true
 	end
 end

@@ -1,4 +1,5 @@
 require "spec_helper"
+require "pry"
 
 describe Rook do 
   let(:square)       { Square.new }
@@ -141,6 +142,66 @@ describe Rook do
         rook.find_moves
 
         expect(rook.moves).to match_array(legal_moves)  
+      end
+    end
+  end
+
+  describe "#move" do
+    context "when the rook is attacking a square" do 
+      it "the square is being attacked by the rook" do 
+        grid = [[Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new, square, Square.new, Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new]]
+
+        Piece.link_to_grid(grid)
+
+        rook = Rook.new(:square => square, 
+                        :player => player,
+                        :color  => player.color)
+
+        square.value = rook 
+        
+        rook.find_moves
+
+        threatened_sq = grid[3][2]
+
+        expect(threatened_sq.attacked_by).to include rook
+      end
+    end
+
+    context "when the rook moves and it no longer is attacking a square" do 
+      it "the square is no longer attacked by the rook" do 
+        grid = [[Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new, square, Square.new, Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new]]
+
+        Piece.link_to_grid(grid)
+
+        rook = Rook.new(:square => square, 
+                        :player => player,
+                        :color  => player.color)
+
+        square.value = rook 
+        
+        rook.find_moves
+
+        rook.move(grid[2][3])
+
+        rook.find_moves
+
+        once_attacked_sq = grid[3][2]
+
+        expect(once_attacked_sq.attacked_by).not_to include rook        
       end
     end
   end
