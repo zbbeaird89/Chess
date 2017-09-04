@@ -144,9 +144,7 @@ describe Rook do
         expect(rook.moves).to match_array(legal_moves)  
       end
     end
-  end
 
-  describe "#move" do
     context "when the rook is attacking a square" do 
       it "the square is being attacked by the rook" do 
         grid = [[Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
@@ -173,7 +171,9 @@ describe Rook do
         expect(threatened_sq.attacked_by).to include rook
       end
     end
+  end
 
+  describe "#move" do 
     context "when the rook moves and it no longer is attacking a square" do 
       it "the square is no longer attacked by the rook" do 
         grid = [[Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
@@ -202,6 +202,76 @@ describe Rook do
         once_attacked_sq = grid[3][2]
 
         expect(once_attacked_sq.attacked_by).not_to include rook        
+      end
+    end
+
+    context "when the rook is protecting the knight" do 
+      it "the knight is protected by the rook" do 
+        grid = [[Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new, square, Square.new, Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new]]
+
+        Piece.link_to_grid(grid)
+
+        rook = Rook.new(:square => square, 
+                        :player => player,
+                        :color  => player.color)
+
+        square.value = rook 
+
+        grid[7][3].value = Knight.new(:square => grid[7][3],
+                                      :player => player,
+                                      :color  => player.color)
+
+        knight = grid[7][3].value
+        
+        rook.find_moves
+
+        expect(knight.protected?).to be true
+        expect(knight.protected_by).to include rook
+        expect(rook.protecting).to include knight
+      end
+    end
+
+    context "when the rook is protecting the knight and then the rook moves" do 
+      it "the rook is no longer protecting the knight" do 
+        grid = [[Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new, square, Square.new, Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new]]
+
+        Piece.link_to_grid(grid)
+
+        rook = Rook.new(:square => square, 
+                        :player => player,
+                        :color  => player.color)
+
+        square.value = rook 
+
+        grid[7][3].value = Knight.new(:square => grid[7][3],
+                                      :player => player,
+                                      :color  => player.color)
+
+        knight = grid[7][3].value
+        
+        rook.find_moves
+
+        rook.move(grid[3][2])
+
+        rook.find_moves
+
+        expect(knight.protected_by).not_to include rook
+        expect(knight.protected?).to be false
+        expect(rook.protecting).to be_empty 
       end
     end
   end

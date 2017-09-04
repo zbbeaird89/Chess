@@ -1,6 +1,9 @@
+require "pry"
+
 class Piece
-	attr_reader :player, :points, :color
-	attr_accessor :square, :first_move, :moves
+	attr_reader   :player, :points, :color
+	attr_accessor :square, :first_move, :moves, :protected_by, :protected, :protecting
+  alias_method  :protected?, :protected
 
   @@grid = nil
 
@@ -13,6 +16,8 @@ class Piece
     @player        = input.fetch(:player)
     @color         = input.fetch(:color)
     @first_move    = true
+    @protected_by  = []
+    @protecting    = []
     @moves         = []
     @points        = 1
 	end
@@ -34,6 +39,8 @@ class Piece
 
   def find_moves
     y, x = grid.coordinates(@square)
+
+    clear_protected_pieces
 
     squares = self.is_a?(Pawn) ? pawn_moves(y, x) : legal_squares(y, x)
 
@@ -81,12 +88,14 @@ class Piece
 
       square.attacked = true
       
-      if square.value.is_a?(Piece) 
-        #Base case if a piece is found
-        return [] if square.value.color == self.color
-        
-        return [square] if square.value.color != self.color
-      else   
+      if square.value.is_a?(Piece)
+        if square.value.color == self.color
+          update_protected_pieces(square.value)
+          return []
+        elsif square.value.color != self.color
+          return [square] 
+        end
+      else  
         next_y = y + direction[0]
         next_x = x + direction[1]
 
@@ -110,9 +119,24 @@ class Piece
       end
     end
 
+    #Any pieces that were once protected by self are deleted
+    def clear_protected_pieces
+      self.protecting.each do |piece| 
+        piece.protected_by.delete(self) 
+        piece.protected = false if piece.protected_by.empty?
+      end
+
+      self.protecting.clear
+    end
+
+    def update_protected_pieces(piece)
+      piece.protected_by.push(self) 
+      piece.protected = true
+      self.protecting.push(piece) 
+    end
+
     def discard_squares(squares)  
       peaceful_squares = @moves - squares
-
       peaceful_squares.each { |sq| sq.attacked_by.delete(self) }
     end
 
@@ -120,3 +144,7 @@ class Piece
       squares.each { |sq| sq.attacked_by << self  }
     end
 end
+
+
+
+# Look into if some of the methods need to be protected
