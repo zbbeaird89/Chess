@@ -4,6 +4,14 @@ describe Bishop do
   let(:square)       { Square.new }
   let(:player)       { Player.new("Zach", :white) }
   let(:other_player) { Player.new("Lauren", :black) }
+  let(:grid)         { [[Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                        [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                        [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                        [Square.new, Square.new, Square.new, square, Square.new, Square.new, Square.new, Square.new],
+                        [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                        [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                        [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                        [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new]] }
 
   describe "#initialize" do 
     context "when given correct number of arguments" do 
@@ -69,16 +77,7 @@ describe Bishop do
 
   describe "#moves" do 
     context "when all directions contain only empty squares" do 
-      it "contains legal squares" do 
-        grid = [[Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, square, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new]]
-        
+      it "contains legal squares" do      
         #Has all pieces link to the grid
         Piece.link_to_grid(grid)
 
@@ -104,16 +103,6 @@ describe Bishop do
 
     context "when both white and black pieces are in the directions" do 
       it "returns legal squares" do 
-        grid = [[Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, square, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new]]
-        
-        #Has all pieces link to the grid
         Piece.link_to_grid(grid)
 
         grid[0][0].value = Piece.new(:square => grid[0][0],
@@ -139,7 +128,6 @@ describe Bishop do
         legal_moves = [grid[0][0], grid[1][1], grid[2][2], grid[4][4], grid[5][5],
                        grid[4][2]]
       
-        #gathers all legal moves for the bishop instance(stores result in @moves)
         bishop.find_moves
 
         expect(bishop.moves).to match_array(legal_moves)  

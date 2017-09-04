@@ -4,6 +4,14 @@ describe Knight do
   let(:square)       { Square.new }
   let(:player)       { Player.new("Zach", :white) }
   let(:other_player) { Player.new("Lauren", :black) }
+  let(:grid)         { [[Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                        [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                        [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                        [Square.new, Square.new, Square.new, square, Square.new, Square.new, Square.new, Square.new],
+                        [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                        [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                        [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                        [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new]] }
 
   describe "#initialize" do 
     context "when given correct number of arguments" do 
@@ -70,16 +78,6 @@ describe Knight do
   describe "#moves" do 
     context "when all directions contain only empty squares" do 
       it "contains legal squares" do 
-        grid = [[Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, square, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new]]
-        
-        #Has all pieces link to the grid
         Piece.link_to_grid(grid)
 
         knight = Knight.new(:square => square, 
@@ -101,16 +99,6 @@ describe Knight do
 
     context "when both white and black pieces are in the directions" do 
       it "returns legal squares" do 
-        grid = [[Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, square, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new]]
-        
-        #Has all pieces link to the grid
         Piece.link_to_grid(grid)
 
         grid[1][2].value = Piece.new(:square => grid[1][2],
@@ -130,13 +118,11 @@ describe Knight do
                             :player => player,
                             :color  => player.color)
 
-        #knights's starting position for this example
         square.value = knight 
 
         legal_moves = [grid[1][2], grid[4][5], grid[2][1], grid[2][5], 
                        grid[5][4], grid[5][2]]
       
-        #gathers all legal moves for the knight instance(stores result in @moves)
         knight.find_moves
 
         expect(knight.moves).to match_array(legal_moves)  

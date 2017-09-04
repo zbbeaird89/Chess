@@ -4,6 +4,14 @@ describe Queen do
   let(:square)       { Square.new }
   let(:player)       { Player.new("Zach", :white) }
   let(:other_player) { Player.new("Lauren", :black) }
+  let(:grid)         { [[Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                        [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                        [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                        [Square.new, Square.new, Square.new, square, Square.new, Square.new, Square.new, Square.new],
+                        [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                        [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                        [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                        [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new]] }
 
   describe "#initialize" do 
     context "when given correct number of arguments" do 
@@ -70,15 +78,6 @@ describe Queen do
   describe "#moves" do 
     context "when all directions contain only empty squares" do 
       it "contains legal squares" do 
-        grid = [[Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, square, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new]]
-        
         #Has all pieces link to the grid
         Piece.link_to_grid(grid)
 
@@ -104,16 +103,6 @@ describe Queen do
 
     context "when both white and black pieces are in the directions" do 
       it "returns legal squares" do 
-        grid = [[Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, square, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new]]
-        
-        #Has all pieces link to the grid
         Piece.link_to_grid(grid)
 
         grid[0][3].value = Piece.new(:square => grid[0][3],
@@ -145,14 +134,12 @@ describe Queen do
                           :player => player,
                           :color  => player.color)
 
-        #queens's starting position for this example
         square.value = queen 
 
         legal_moves = [grid[3][2], grid[0][3], grid[1][3], grid[2][3], grid[3][4],
                        grid[3][5], grid[1][1], grid[2][2], grid[1][5], grid[2][4],
                        grid[5][5], grid[4][4], grid[6][0], grid[5][1], grid[4][2]]
       
-        #gathers all legal moves for the queen instance(stores result in @moves)
         queen.find_moves
 
         expect(queen.moves).to match_array(legal_moves)  

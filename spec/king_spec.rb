@@ -4,6 +4,14 @@ describe King do
   let(:square)       { Square.new }
   let(:player)       { Player.new("Zach", :white) }
   let(:other_player) { Player.new("Lauren", :black) }
+  let(:grid)         { [[Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                        [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                        [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                        [Square.new, Square.new, Square.new, square, Square.new, Square.new, Square.new, Square.new],
+                        [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                        [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                        [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                        [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new]] }
 
   describe "#initialize" do 
     context "when given correct number of arguments" do 
@@ -69,16 +77,8 @@ describe King do
 
   describe "#check?" do 
     context "when king is in check" do 
-      it "returns true" do 
-        grid = [[Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, square, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new]]
-        
+      it "returns true" do       
+        #Has all pieces link to grid  
         Piece.link_to_grid(grid)
 
         king = King.new(:square => square,
@@ -102,16 +102,6 @@ describe King do
   describe "#moves" do 
     context "when all directions contain only empty squares" do 
       it "contains legal squares" do 
-        grid = [[Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, square, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new]]
-        
-        #Has all pieces link to the grid
         Piece.link_to_grid(grid)
 
         king = King.new(:square => square, 
