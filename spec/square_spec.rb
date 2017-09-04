@@ -26,14 +26,6 @@ describe Square do
 		end
 	end
 
-  describe "#attacked?" do 
-    it "can be updated and read" do 
-      square = Square.new
-      square.attacked = true
-      expect(square.attacked?).to eq true
-    end
-  end
-
   describe "#attacked_by" do 
     it "returns the piece that is attacking the square" do 
       square = Square.new

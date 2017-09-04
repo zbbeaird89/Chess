@@ -1,10 +1,12 @@
 class Square
-	attr_accessor :value, :attacked, :attacked_by
-  alias_method  :attacked?, :attacked
+	attr_accessor :value, :attacked_by
 
 	def initialize(input = "_")
 		@value       = input
     @attacked_by = []
-    @attacked    = @attacked_by.empty? ? false : true
 	end
+
+  def attacked?
+    @attacked_by.empty? ? false : true
+  end
 end

@@ -3,14 +3,8 @@ class King < Piece
 
   def initialize(input)
     super(input)
-    @directions = [[-1, 0], [1, 0], [0, -1], [0, 1],
-                   [-1, -1], [-1, 1], [1, 1], [1, -1],
-                   [-2, -1], [-2, 1], [-1, 2], [1, 2],
-                   [2, 1], [2, -1], [1, -2], [-1, -2]]
-  end
-
-  def check?(square = self.square)
-    square.attacked? ? true : false
+    @directions = [[0, -1], [-1, -1], [-1, 0], [-1, 1], 
+                   [0, 1], [1, 1], [1, 0], [1, -1]]
   end
 
   private
@@ -20,13 +14,17 @@ class King < Piece
         square = grid[y][x]
         value  = square.value
 
-        return square unless square.attacked? 
+        if value.is_a?(Piece)
+          piece = value
+          update_protected_pieces(piece) if piece.color == self.color
+          return square unless piece.color == self.color || square.attacked?
+        else
+          return square unless square.attacked?
+        end
       end
+
+      return []
     end
-
-
-    #king could attack an enemy piece but that piece could be protected making it an illegal
-    #square
 
 
     #gather legal squares for both kings and then check to see if they have any common squares and 

@@ -47,7 +47,7 @@ class Piece
     discard_squares(squares)
 
     assign_attacker(squares)
-
+    
     @moves = squares
   end
 
@@ -71,9 +71,9 @@ class Piece
         next_y = y + direction[0]
         next_x = x + direction[1]
         
-        squares << gather_squares(next_y, next_x, direction) unless self.is_a?(Knight)
-        squares << knight_squares(next_y, next_x) if self.is_a?(Knight)
+        squares << gather_squares(next_y, next_x, direction) unless self.is_a?(Knight) || self.is_a?(King)
         squares << king_squares(next_y, next_x) if self.is_a?(King)
+        squares << knight_squares(next_y, next_x) if self.is_a?(Knight)
       end
 
       return squares.flatten
@@ -85,8 +85,6 @@ class Piece
       return [] if y < 0 || y > 7 || x < 0 || x > 7
 
       square = grid[y][x]
-
-      square.attacked = true
       
       if square.value.is_a?(Piece)
         if square.value.color == self.color
@@ -115,7 +113,15 @@ class Piece
 
         #This value will be flattened in its squares array
         #Without this line the return value would be nil causing a bug
-        return [] if square.value.is_a?(Piece) && square.value.color == self.color
+        if square.value.is_a?(Piece) && square.value.color == self.color
+          update_protected_pieces(square.value)
+          return [] 
+        end
+      else
+        #If we go off the grid
+        #The value will be flattened in its squares array
+        #Without this line the return value would be nil causing a bug
+        return []
       end
     end
 
@@ -141,7 +147,7 @@ class Piece
     end
 
     def assign_attacker(squares)    
-      squares.each { |sq| sq.attacked_by << self  }
+      squares.each { |sq| sq.attacked_by.push(self) }
     end
 end
 

@@ -145,5 +145,99 @@ describe Queen do
         expect(queen.moves).to match_array(legal_moves)  
       end
     end
+
+    context "when the queen is attacking a square" do 
+      it "the square is being attacked by the queen" do
+        Piece.link_to_grid(grid)
+
+        queen = Queen.new(:square => square, 
+                          :player => player,
+                          :color  => player.color)
+
+        square.value = queen 
+        
+        queen.find_moves
+
+        threatened_sq = grid[3][2]
+
+        expect(threatened_sq.attacked_by).to include queen
+      end
+    end
+  end
+
+  describe "#move" do 
+    context "when the queen moves and it no longer is attacking a square" do 
+      it "the square is no longer attacked by the queen" do 
+        Piece.link_to_grid(grid)
+
+        queen = Queen.new(:square => square, 
+                          :player => player,
+                          :color  => player.color)
+
+        square.value = queen 
+        
+        queen.find_moves
+
+        queen.move(grid[2][3])
+
+        queen.find_moves
+
+        once_attacked_sq = grid[3][0]
+
+        expect(once_attacked_sq.attacked_by).not_to include queen        
+      end
+    end
+
+    context "when the queen is protecting the knight" do 
+      it "the knight is protected by the queen" do 
+        Piece.link_to_grid(grid)
+
+        queen = Queen.new(:square => square, 
+                          :player => player,
+                          :color  => player.color)
+
+        square.value = queen 
+
+        grid[7][3].value = Knight.new(:square => grid[7][3],
+                                      :player => player,
+                                      :color  => player.color)
+
+        knight = grid[7][3].value
+        
+        queen.find_moves
+
+        expect(knight.protected?).to be true
+        expect(knight.protected_by).to include queen
+        expect(queen.protecting).to include knight
+      end
+    end
+
+    context "when the queen is protecting the knight and then the queen moves" do 
+      it "the queen is no longer protecting the knight" do 
+        Piece.link_to_grid(grid)
+
+        queen = Queen.new(:square => square, 
+                          :player => player,
+                          :color  => player.color)
+
+        square.value = queen 
+
+        grid[7][3].value = Knight.new(:square => grid[7][3],
+                                      :player => player,
+                                      :color  => player.color)
+
+        knight = grid[7][3].value
+        
+        queen.find_moves
+
+        queen.move(grid[3][2])
+
+        queen.find_moves
+
+        expect(knight.protected_by).not_to include queen
+        expect(knight.protected?).to be false
+        expect(queen.protecting).to be_empty 
+      end
+    end
   end
 end

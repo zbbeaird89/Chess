@@ -133,5 +133,99 @@ describe Bishop do
         expect(bishop.moves).to match_array(legal_moves)  
       end
     end
+
+    context "when the bishop is attacking a square" do 
+      it "the square is being attacked by the bishop" do
+        Piece.link_to_grid(grid)
+
+        bishop = Bishop.new(:square => square, 
+                            :player => player,
+                            :color  => player.color)
+
+        square.value = bishop 
+        
+        bishop.find_moves
+
+        threatened_sq = grid[4][2]
+
+        expect(threatened_sq.attacked_by).to include bishop
+      end
+    end
+  end
+
+  describe "#move" do 
+    context "when the bishop moves and it no longer is attacking a square" do 
+      it "the square is no longer attacked by the bishop" do 
+        Piece.link_to_grid(grid)
+
+        bishop = Bishop.new(:square => square, 
+                            :player => player,
+                            :color  => player.color)
+
+        square.value = bishop 
+        
+        bishop.find_moves
+
+        bishop.move(grid[4][4])
+
+        bishop.find_moves
+
+        once_attacked_sq = grid[4][2]
+
+        expect(once_attacked_sq.attacked_by).not_to include bishop        
+      end
+    end
+
+    context "when the bishop is protecting the knight" do 
+      it "the knight is protected by the bishop" do 
+        Piece.link_to_grid(grid)
+
+        bishop = Bishop.new(:square => square, 
+                            :player => player,
+                            :color  => player.color)
+
+        square.value = bishop 
+
+        grid[1][1].value = Knight.new(:square => grid[1][1],
+                                      :player => player,
+                                      :color  => player.color)
+
+        knight = grid[1][1].value
+        
+        bishop.find_moves
+
+        expect(knight.protected?).to be true
+        expect(knight.protected_by).to include bishop
+        expect(bishop.protecting).to include knight
+      end
+    end
+
+    context "when the bishop is protecting the knight and then the bishop moves" do 
+      it "the bishop is no longer protecting the knight" do 
+        Piece.link_to_grid(grid)
+
+        bishop = Bishop.new(:square => square, 
+                            :player => player,
+                            :color  => player.color)
+
+        square.value = bishop 
+
+        grid[1][1].value = Knight.new(:square => grid[1][1],
+                                      :player => player,
+                                      :color  => player.color)
+
+        knight = grid[1][1].value
+        
+        bishop.find_moves
+
+        bishop.move(grid[4][2])
+
+        bishop.find_moves
+
+        expect(knight.protected_by).not_to include bishop
+        expect(knight.protected?).to be false
+        expect(bishop.protecting).to be_empty 
+      end
+    end
   end
 end
