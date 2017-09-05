@@ -74,7 +74,7 @@ describe King do
       expect(king.points).to eq 1
     end
   end
-=begin
+
   describe "#check?" do 
     context "when king is in check" do 
       it "returns true" do       
@@ -98,7 +98,7 @@ describe King do
       end
     end
   end
-=end
+
   describe "#moves" do 
     context "when all directions contain only empty squares and they aren't attacked" do 
       it "contains correct legal squares" do 

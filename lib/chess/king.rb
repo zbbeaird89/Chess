@@ -1,10 +1,14 @@
 class King < Piece
-  attr_reader :directions
+  attr_reader   :directions
 
   def initialize(input)
     super(input)
     @directions = [[0, -1], [-1, -1], [-1, 0], [-1, 1], 
                    [0, 1], [1, 1], [1, 0], [1, -1]]
+  end
+
+  def check?
+    self.square.attacked?
   end
 
   private
