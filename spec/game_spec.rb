@@ -19,6 +19,18 @@ describe Game do
     end
   end
 
+  describe "#players" do 
+    it "reads player1" do 
+      game = Game.new(:players => players)
+      expect(game.player1).to eq player1
+    end
+
+    it "reads player2" do 
+      game = Game.new(:players => players)
+      expect(game.player2).to eq player2
+    end
+  end
+
   describe "#board" do 
     it "can access the grid" do 
       game = Game.new(:players => players)
