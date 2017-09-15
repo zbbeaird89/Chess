@@ -17,6 +17,28 @@ describe Game do
         expect { Game.new }.to raise_error(ArgumentError)
       end
     end
+
+    context "when pieces are assigned to their starting positions" do
+      it "White King is in correct position" do 
+        game = Game.new(:players => players)
+        expect(game.board.squares["E1"].value).to be_a King
+      end
+
+      it "Black King is in correct position" do 
+        game = Game.new(:players => players)
+        expect(game.board.squares["E8"].value).to be_a King
+      end
+
+      it "A White Pawn is in correct position" do 
+        game = Game.new(:players => players)
+        expect(game.board.squares["E2"].value).to be_a Pawn
+      end
+
+      it "A Black Pawn is in correct position" do 
+        game = Game.new(:players => players)
+        expect(game.board.squares["E7"].value).to be_a Pawn
+      end
+    end
   end
 
   describe "#players" do 
