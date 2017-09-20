@@ -1,7 +1,9 @@
 class Pawn < Piece
-  
+  attr_reader :icon
+
   def initialize(input)
     super(input)
+    @icon = @color == :white ? "\u2659".encode("utf-8") : "\u265F".encode("utf-8")
   end
 
   private
@@ -38,7 +40,7 @@ class Pawn < Piece
       moves << left_diag if left_diag.value.is_a?(Piece) && left_diag.value.color == :white
 
       moves << right_diag if right_diag.value.is_a?(Piece) && right_diag.value.color == :white
-    
+
       return moves
     end
 

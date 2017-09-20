@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Bishop do 
+describe Bishop do
   let(:square)       { Square.new }
   let(:player)       { Player.new("Zach", :white) }
   let(:other_player) { Player.new("Lauren", :black) }
@@ -13,31 +13,51 @@ describe Bishop do
                         [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
                         [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new]] }
 
-  describe "#initialize" do 
-    context "when given correct number of arguments" do 
-      it "doesn't raise exception" do 
+  describe "#initialize" do
+    context "when given correct number of arguments" do
+      it "doesn't raise exception" do
         expect { Bishop.new(:square => square,
                             :player => player,
                             :color  => player.color) }.to_not raise_error
       end
     end
 
-    context "when given wrong number of arguments" do 
-      it "raises 'KeyError'" do 
+    context "when given wrong number of arguments" do
+      it "raises 'KeyError'" do
         expect { Pawn.new(:player => player) }.to raise_error(KeyError)
+      end
+    end
+
+    context "when bishop's color is :white" do
+      it "bishop's icon is white" do
+        bishop = Bishop.new(:square => square,
+                            :player => player,
+                            :color  => player.color)
+        icon = "\u2657".encode("utf-8")
+        expect(bishop.icon).to eq icon
+      end
+    end
+
+    context "when bishop's color is :black" do
+      it "bishop's icon is black" do
+        bishop = Bishop.new(:square => square,
+                            :player => other_player,
+                            :color  => other_player.color)
+        icon = "\u265D".encode("utf-8")
+        expect(bishop.icon).to eq icon
       end
     end
   end
 
-  describe "#grid" do 
-    it "can read the grid" do 
+  describe "#grid" do
+    it "can read the grid" do
       grid = [["", "", ""],
               ["", "", ""],
               ["", "", ""]]
 
       Piece.link_to_grid(grid)
 
-      bishop = Bishop.new(:square => square, 
+      bishop = Bishop.new(:square => square,
                           :player => player,
                           :color  => player.color)
 
@@ -45,9 +65,9 @@ describe Bishop do
     end
   end
 
-  describe "#square" do 
-    it "can read the square" do 
-      bishop = Bishop.new(:square => square, 
+  describe "#square" do
+    it "can read the square" do
+      bishop = Bishop.new(:square => square,
                           :player => player,
                           :color  => player.color)
 
@@ -55,9 +75,9 @@ describe Bishop do
     end
   end
 
-  describe "#player" do 
-    it "can read the player" do   
-      bishop = Bishop.new(:square => square, 
+  describe "#player" do
+    it "can read the player" do
+      bishop = Bishop.new(:square => square,
                           :player => player,
                           :color  => player.color)
 
@@ -65,9 +85,9 @@ describe Bishop do
     end
   end
 
-  describe "#points" do 
-    it "can read points" do   
-      bishop = Bishop.new(:square => square, 
+  describe "#points" do
+    it "can read points" do
+      bishop = Bishop.new(:square => square,
                           :player => player,
                           :color  => player.color)
 
@@ -75,18 +95,18 @@ describe Bishop do
     end
   end
 
-  describe "#moves" do 
-    context "when all directions contain only empty squares" do 
-      it "contains legal squares" do      
+  describe "#moves" do
+    context "when all directions contain only empty squares" do
+      it "contains legal squares" do
         #Has all pieces link to the grid
         Piece.link_to_grid(grid)
 
-        bishop = Bishop.new(:square => square, 
+        bishop = Bishop.new(:square => square,
                             :player => player,
                             :color  => player.color)
 
         #Bishop's starting position for this example
-        square.value = bishop 
+        square.value = bishop
 
         legal_moves = [grid[0][0], grid[1][1], grid[2][2], grid[4][4], grid[5][5], grid[6][6],
                        grid[7][7], grid[4][2], grid[5][1], grid[6][0], grid[2][4], grid[1][5],
@@ -101,8 +121,8 @@ describe Bishop do
       end
     end
 
-    context "when both white and black pieces are in the directions" do 
-      it "returns legal squares" do 
+    context "when both white and black pieces are in the directions" do
+      it "returns legal squares" do
         Piece.link_to_grid(grid)
 
         grid[0][0].value = Piece.new(:square => grid[0][0],
@@ -118,32 +138,32 @@ describe Bishop do
                                      :player => player,
                                      :color  => player.color)
 
-        bishop = Bishop.new(:square => square, 
+        bishop = Bishop.new(:square => square,
                             :player => player,
                             :color  => player.color)
 
         #Bishop's starting position for this example
-        square.value = bishop 
+        square.value = bishop
 
         legal_moves = [grid[0][0], grid[1][1], grid[2][2], grid[4][4], grid[5][5],
                        grid[4][2]]
-      
+
         bishop.find_moves
 
-        expect(bishop.moves).to match_array(legal_moves)  
+        expect(bishop.moves).to match_array(legal_moves)
       end
     end
 
-    context "when the bishop is attacking a square" do 
+    context "when the bishop is attacking a square" do
       it "the square is being attacked by the bishop" do
         Piece.link_to_grid(grid)
 
-        bishop = Bishop.new(:square => square, 
+        bishop = Bishop.new(:square => square,
                             :player => player,
                             :color  => player.color)
 
-        square.value = bishop 
-        
+        square.value = bishop
+
         bishop.find_moves
 
         threatened_sq = grid[4][2]
@@ -153,17 +173,17 @@ describe Bishop do
     end
   end
 
-  describe "#move" do 
-    context "when the bishop moves and it no longer is attacking a square" do 
-      it "the square is no longer attacked by the bishop" do 
+  describe "#move" do
+    context "when the bishop moves and it no longer is attacking a square" do
+      it "the square is no longer attacked by the bishop" do
         Piece.link_to_grid(grid)
 
-        bishop = Bishop.new(:square => square, 
+        bishop = Bishop.new(:square => square,
                             :player => player,
                             :color  => player.color)
 
-        square.value = bishop 
-        
+        square.value = bishop
+
         bishop.find_moves
 
         bishop.move(grid[4][4])
@@ -172,26 +192,26 @@ describe Bishop do
 
         once_attacked_sq = grid[4][2]
 
-        expect(once_attacked_sq.attacked_by).not_to include bishop        
+        expect(once_attacked_sq.attacked_by).not_to include bishop
       end
     end
 
-    context "when the bishop is protecting the knight" do 
-      it "the knight is protected by the bishop" do 
+    context "when the bishop is protecting the knight" do
+      it "the knight is protected by the bishop" do
         Piece.link_to_grid(grid)
 
-        bishop = Bishop.new(:square => square, 
+        bishop = Bishop.new(:square => square,
                             :player => player,
                             :color  => player.color)
 
-        square.value = bishop 
+        square.value = bishop
 
         grid[1][1].value = Knight.new(:square => grid[1][1],
                                       :player => player,
                                       :color  => player.color)
 
         knight = grid[1][1].value
-        
+
         bishop.find_moves
 
         expect(knight.protected?).to be true
@@ -200,22 +220,22 @@ describe Bishop do
       end
     end
 
-    context "when the bishop is protecting the knight and then the bishop moves" do 
-      it "the bishop is no longer protecting the knight" do 
+    context "when the bishop is protecting the knight and then the bishop moves" do
+      it "the bishop is no longer protecting the knight" do
         Piece.link_to_grid(grid)
 
-        bishop = Bishop.new(:square => square, 
+        bishop = Bishop.new(:square => square,
                             :player => player,
                             :color  => player.color)
 
-        square.value = bishop 
+        square.value = bishop
 
         grid[1][1].value = Knight.new(:square => grid[1][1],
                                       :player => player,
                                       :color  => player.color)
 
         knight = grid[1][1].value
-        
+
         bishop.find_moves
 
         bishop.move(grid[4][2])
@@ -224,7 +244,7 @@ describe Bishop do
 
         expect(knight.protected_by).not_to include bishop
         expect(knight.protected?).to be false
-        expect(bishop.protecting).to be_empty 
+        expect(bishop.protecting).to be_empty
       end
     end
   end

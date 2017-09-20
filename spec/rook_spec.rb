@@ -1,7 +1,7 @@
 require "spec_helper"
 require "pry"
 
-describe Rook do 
+describe Rook do
   let(:square)       { Square.new }
   let(:player)       { Player.new("Zach", :white) }
   let(:other_player) { Player.new("Lauren", :black) }
@@ -14,31 +14,51 @@ describe Rook do
                         [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
                         [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new]] }
 
-  describe "#initialize" do 
-    context "when given correct number of arguments" do 
-      it "doesn't raise exception" do 
+  describe "#initialize" do
+    context "when given correct number of arguments" do
+      it "doesn't raise exception" do
         expect { Rook.new(:square => square,
                           :player => player,
                           :color  => player.color) }.to_not raise_error
       end
     end
 
-    context "when given wrong number of arguments" do 
-      it "raises 'KeyError'" do 
+    context "when given wrong number of arguments" do
+      it "raises 'KeyError'" do
         expect { Rook.new(:player => player) }.to raise_error(KeyError)
+      end
+    end
+
+    context "when the rook's color is white" do
+      it "the rook's icon is white" do
+        rook = Rook.new(:square => square,
+                        :player => player,
+                        :color  => player.color)
+        icon = "\u2656".encode("utf-8")
+        expect(rook.icon).to eq icon
+      end
+    end
+
+    context "when the rook's color is black" do
+      it "the rook's icon is black" do
+        rook = Rook.new(:square => square,
+                        :player => other_player,
+                        :color  => other_player.color)
+        icon = "\u265C".encode("utf-8")
+        expect(rook.icon).to eq icon
       end
     end
   end
 
-  describe "#grid" do 
-    it "can read the grid" do 
+  describe "#grid" do
+    it "can read the grid" do
       grid = [["", "", ""],
               ["", "", ""],
               ["", "", ""]]
 
       Piece.link_to_grid(grid)
 
-      rook = Rook.new(:square => square, 
+      rook = Rook.new(:square => square,
                       :player => player,
                       :color  => player.color)
 
@@ -46,9 +66,9 @@ describe Rook do
     end
   end
 
-  describe "#square" do 
-    it "can read the square" do 
-      rook = Rook.new(:square => square, 
+  describe "#square" do
+    it "can read the square" do
+      rook = Rook.new(:square => square,
                       :player => player,
                       :color  => player.color)
 
@@ -56,9 +76,9 @@ describe Rook do
     end
   end
 
-  describe "#player" do 
-    it "can read the player" do 
-      rook = Rook.new(:square => square, 
+  describe "#player" do
+    it "can read the player" do
+      rook = Rook.new(:square => square,
                       :player => player,
                       :color  => player.color)
 
@@ -66,8 +86,8 @@ describe Rook do
     end
   end
 
-  describe "#points" do 
-    it "can read points" do 
+  describe "#points" do
+    it "can read points" do
       rook = Rook.new(:square => square,
                       :player => player,
                       :color  => player.color)
@@ -76,18 +96,18 @@ describe Rook do
     end
   end
 
-  describe "#moves" do 
-    context "when all directions contain only empty squares" do 
-      it "contains legal squares" do 
+  describe "#moves" do
+    context "when all directions contain only empty squares" do
+      it "contains legal squares" do
         #Has all pieces link to the grid
         Piece.link_to_grid(grid)
 
-        rook = Rook.new(:square => square, 
+        rook = Rook.new(:square => square,
                         :player => player,
                         :color  => player.color)
 
         #Rook's starting position for this example
-        square.value = rook 
+        square.value = rook
 
         legal_moves = [grid[2][3], grid[1][3], grid[0][3], grid[4][3], grid[5][3],
                        grid[6][3], grid[7][3], grid[3][4], grid[3][5], grid[3][6],
@@ -100,8 +120,8 @@ describe Rook do
       end
     end
 
-    context "when both white and black pieces are in the directions" do 
-      it "returns legal squares" do 
+    context "when both white and black pieces are in the directions" do
+      it "returns legal squares" do
         Piece.link_to_grid(grid)
 
         grid[0][3].value = Piece.new(:square => grid[0][3],
@@ -117,31 +137,31 @@ describe Rook do
                                      :player => player,
                                      :color  => player.color)
 
-        rook = Rook.new(:square => square, 
+        rook = Rook.new(:square => square,
                         :player => player,
                         :color  => player.color)
 
-        square.value = rook 
+        square.value = rook
 
         legal_moves = [grid[0][3], grid[1][3], grid[2][3], grid[3][2], grid[3][4],
                        grid[3][5]]
-      
+
         rook.find_moves
 
-        expect(rook.moves).to match_array(legal_moves)  
+        expect(rook.moves).to match_array(legal_moves)
       end
     end
 
-    context "when the rook is attacking a square" do 
+    context "when the rook is attacking a square" do
       it "the square is being attacked by the rook" do
         Piece.link_to_grid(grid)
 
-        rook = Rook.new(:square => square, 
+        rook = Rook.new(:square => square,
                         :player => player,
                         :color  => player.color)
 
-        square.value = rook 
-        
+        square.value = rook
+
         rook.find_moves
 
         threatened_sq = grid[3][2]
@@ -151,17 +171,17 @@ describe Rook do
     end
   end
 
-  describe "#move" do 
-    context "when the rook moves and it no longer is attacking a square" do 
-      it "the square is no longer attacked by the rook" do 
+  describe "#move" do
+    context "when the rook moves and it no longer is attacking a square" do
+      it "the square is no longer attacked by the rook" do
         Piece.link_to_grid(grid)
 
-        rook = Rook.new(:square => square, 
+        rook = Rook.new(:square => square,
                         :player => player,
                         :color  => player.color)
 
-        square.value = rook 
-        
+        square.value = rook
+
         rook.find_moves
 
         rook.move(grid[2][3])
@@ -170,26 +190,26 @@ describe Rook do
 
         once_attacked_sq = grid[3][2]
 
-        expect(once_attacked_sq.attacked_by).not_to include rook        
+        expect(once_attacked_sq.attacked_by).not_to include rook
       end
     end
 
-    context "when the rook is protecting the knight" do 
-      it "the knight is protected by the rook" do 
+    context "when the rook is protecting the knight" do
+      it "the knight is protected by the rook" do
         Piece.link_to_grid(grid)
 
-        rook = Rook.new(:square => square, 
+        rook = Rook.new(:square => square,
                         :player => player,
                         :color  => player.color)
 
-        square.value = rook 
+        square.value = rook
 
         grid[7][3].value = Knight.new(:square => grid[7][3],
                                       :player => player,
                                       :color  => player.color)
 
         knight = grid[7][3].value
-        
+
         rook.find_moves
 
         expect(knight.protected?).to be true
@@ -198,22 +218,22 @@ describe Rook do
       end
     end
 
-    context "when the rook is protecting the knight and then the rook moves" do 
-      it "the rook is no longer protecting the knight" do 
+    context "when the rook is protecting the knight and then the rook moves" do
+      it "the rook is no longer protecting the knight" do
         Piece.link_to_grid(grid)
 
-        rook = Rook.new(:square => square, 
+        rook = Rook.new(:square => square,
                         :player => player,
                         :color  => player.color)
 
-        square.value = rook 
+        square.value = rook
 
         grid[7][3].value = Knight.new(:square => grid[7][3],
                                       :player => player,
                                       :color  => player.color)
 
         knight = grid[7][3].value
-        
+
         rook.find_moves
 
         rook.move(grid[3][2])
@@ -222,7 +242,7 @@ describe Rook do
 
         expect(knight.protected_by).not_to include rook
         expect(knight.protected?).to be false
-        expect(rook.protecting).to be_empty 
+        expect(rook.protecting).to be_empty
       end
     end
   end

@@ -1,10 +1,11 @@
 class King < Piece
-  attr_reader   :directions
+  attr_reader :directions, :icon
 
   def initialize(input)
     super(input)
-    @directions = [[0, -1], [-1, -1], [-1, 0], [-1, 1], 
+    @directions = [[0, -1], [-1, -1], [-1, 0], [-1, 1],
                    [0, 1], [1, 1], [1, 0], [1, -1]]
+    @icon = @color == :white ? "\u2654".encode("utf-8") : "\u265A".encode("utf-8")
   end
 
   def check?
@@ -31,6 +32,6 @@ class King < Piece
     end
 
 
-    #gather legal squares for both kings and then check to see if they have any common squares and 
+    #gather legal squares for both kings and then check to see if they have any common squares and
     #set @attacked to false and remove those squares from king.moves
 end

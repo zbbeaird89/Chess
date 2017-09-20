@@ -1,7 +1,7 @@
 require "spec_helper"
 require "pry"
 
-describe Knight do 
+describe Knight do
   let(:square)       { Square.new }
   let(:player)       { Player.new("Zach", :white) }
   let(:other_player) { Player.new("Lauren", :black) }
@@ -14,31 +14,51 @@ describe Knight do
                         [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
                         [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new]] }
 
-  describe "#initialize" do 
-    context "when given correct number of arguments" do 
-      it "doesn't raise exception" do 
+  describe "#initialize" do
+    context "when given correct number of arguments" do
+      it "doesn't raise exception" do
         expect { Knight.new(:square => square,
                           :player => player,
                           :color  => player.color) }.to_not raise_error
       end
     end
 
-    context "when given wrong number of arguments" do 
-      it "raises 'KeyError'" do 
+    context "when given wrong number of arguments" do
+      it "raises 'KeyError'" do
         expect { Knight.new(:player => player) }.to raise_error(KeyError)
+      end
+    end
+
+    context "when the knight's color is white" do
+      it "the knight's icon is white" do
+        knight = Knight.new(:square => square,
+                            :player => player,
+                            :color  => player.color)
+        icon = "\u2658".encode("utf-8")
+        expect(knight.icon).to eq icon
+      end
+    end
+
+    context "when the knight's color is black" do
+      it "the knight's icon is black" do
+        knight = Knight.new(:square => square,
+                            :player => other_player,
+                            :color  => other_player.color)
+        icon = "\u265E".encode("utf-8")
+        expect(knight.icon).to eq icon
       end
     end
   end
 
-  describe "#grid" do 
-    it "can read the grid" do 
+  describe "#grid" do
+    it "can read the grid" do
       grid = [["", "", ""],
               ["", "", ""],
               ["", "", ""]]
 
       Piece.link_to_grid(grid)
 
-      knight = Knight.new(:square => square, 
+      knight = Knight.new(:square => square,
                           :player => player,
                           :color  => player.color)
 
@@ -46,9 +66,9 @@ describe Knight do
     end
   end
 
-  describe "#square" do 
-    it "can read the square" do 
-      knight = Knight.new(:square => square, 
+  describe "#square" do
+    it "can read the square" do
+      knight = Knight.new(:square => square,
                           :player => player,
                           :color  => player.color)
 
@@ -56,9 +76,9 @@ describe Knight do
     end
   end
 
-  describe "#player" do 
-    it "can read the player" do 
-      knight = Knight.new(:square => square, 
+  describe "#player" do
+    it "can read the player" do
+      knight = Knight.new(:square => square,
                           :player => player,
                           :color  => player.color)
 
@@ -66,8 +86,8 @@ describe Knight do
     end
   end
 
-  describe "#points" do 
-    it "can read points" do 
+  describe "#points" do
+    it "can read points" do
       knight = Knight.new(:square => square,
                           :player => player,
                           :color  => player.color)
@@ -75,17 +95,17 @@ describe Knight do
       expect(knight.points).to eq 3
     end
   end
-  describe "#moves" do 
-    context "when all directions contain only empty squares" do 
-      it "contains legal squares" do 
+  describe "#moves" do
+    context "when all directions contain only empty squares" do
+      it "contains legal squares" do
         Piece.link_to_grid(grid)
 
-        knight = Knight.new(:square => square, 
+        knight = Knight.new(:square => square,
                             :player => player,
                             :color  => player.color)
 
         #knight's starting position for this example
-        square.value = knight 
+        square.value = knight
 
         legal_moves = [grid[2][1], grid[1][2], grid[1][4], grid[2][5],
                        grid[4][5], grid[5][4], grid[5][2], grid[4][1]]
@@ -97,8 +117,8 @@ describe Knight do
       end
     end
 
-    context "when both white and black pieces are in the directions" do 
-      it "returns legal squares" do 
+    context "when both white and black pieces are in the directions" do
+      it "returns legal squares" do
         Piece.link_to_grid(grid)
 
         grid[1][2].value = Piece.new(:square => grid[1][2],
@@ -114,31 +134,31 @@ describe Knight do
                                      :player => player,
                                      :color  => player.color)
 
-        knight = Knight.new(:square => square, 
+        knight = Knight.new(:square => square,
                             :player => player,
                             :color  => player.color)
 
-        square.value = knight 
+        square.value = knight
 
-        legal_moves = [grid[1][2], grid[4][5], grid[2][1], grid[2][5], 
+        legal_moves = [grid[1][2], grid[4][5], grid[2][1], grid[2][5],
                        grid[5][4], grid[5][2]]
-      
+
         knight.find_moves
 
-        expect(knight.moves).to match_array(legal_moves)  
+        expect(knight.moves).to match_array(legal_moves)
       end
     end
 
-    context "when the knight is attacking a square" do 
+    context "when the knight is attacking a square" do
       it "the square is being attacked by the knight" do
         Piece.link_to_grid(grid)
 
-        knight = Knight.new(:square => square, 
+        knight = Knight.new(:square => square,
                             :player => player,
                             :color  => player.color)
 
-        square.value = knight 
-        
+        square.value = knight
+
         knight.find_moves
 
         threatened_sq = grid[1][2]
@@ -148,17 +168,17 @@ describe Knight do
     end
   end
 
-  describe "#move" do 
-    context "when the knight moves and it no longer is attacking a square" do 
-      it "the square is no longer attacked by the knight" do 
+  describe "#move" do
+    context "when the knight moves and it no longer is attacking a square" do
+      it "the square is no longer attacked by the knight" do
         Piece.link_to_grid(grid)
 
-        knight = Knight.new(:square => square, 
+        knight = Knight.new(:square => square,
                             :player => player,
                             :color  => player.color)
 
-        square.value = knight 
-        
+        square.value = knight
+
         knight.find_moves
 
         knight.move(grid[2][3])
@@ -167,26 +187,26 @@ describe Knight do
 
         once_attacked_sq = grid[3][0]
 
-        expect(once_attacked_sq.attacked_by).not_to include knight        
+        expect(once_attacked_sq.attacked_by).not_to include knight
       end
     end
 
-    context "when the knight is protecting the queen" do 
-      it "the queen is protected by the knight" do 
+    context "when the knight is protecting the queen" do
+      it "the queen is protected by the knight" do
         Piece.link_to_grid(grid)
 
-        knight = Knight.new(:square => square, 
+        knight = Knight.new(:square => square,
                             :player => player,
                             :color  => player.color)
 
-        square.value = knight 
+        square.value = knight
 
         grid[1][2].value = Queen.new(:square => grid[1][2],
                                      :player => player,
                                      :color  => player.color)
 
         queen = grid[1][2].value
-        
+
         knight.find_moves
 
         expect(queen.protected?).to be true
@@ -195,22 +215,22 @@ describe Knight do
       end
     end
 
-    context "when the knight is protecting the queen and then the knight moves" do 
-      it "the knight is no longer protecting the queen" do 
+    context "when the knight is protecting the queen and then the knight moves" do
+      it "the knight is no longer protecting the queen" do
         Piece.link_to_grid(grid)
 
-        knight = Knight.new(:square => square, 
+        knight = Knight.new(:square => square,
                             :player => player,
                             :color  => player.color)
 
-        square.value = knight 
+        square.value = knight
 
         grid[1][2].value = Queen.new(:square => grid[1][2],
                                      :player => player,
                                      :color  => player.color)
 
         queen = grid[1][2].value
-        
+
         knight.find_moves
 
         knight.move(grid[1][4])
@@ -219,7 +239,7 @@ describe Knight do
 
         expect(queen.protected_by).not_to include knight
         expect(queen.protected?).to be false
-        expect(knight.protecting).to be_empty 
+        expect(knight.protecting).to be_empty
       end
     end
   end

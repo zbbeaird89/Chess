@@ -10,7 +10,7 @@ class Piece
   def self.link_to_grid(grid)
     @@grid = grid
   end
-
+  
 	def initialize(input)
 		@square        = input.fetch(:square)
     @player        = input.fetch(:player)
@@ -47,7 +47,7 @@ class Piece
     discard_squares(squares)
 
     assign_attacker(squares)
-    
+
     @moves = squares
   end
 
@@ -65,12 +65,12 @@ class Piece
 
     def legal_squares(y, x)
       squares = []
-      
+
       #All subclasses of Piece have their own directions instance variable
       @directions.each do |direction|
         next_y = y + direction[0]
         next_x = x + direction[1]
-        
+
         squares << gather_squares(next_y, next_x, direction) unless self.is_a?(Knight) || self.is_a?(King)
         squares << king_squares(next_y, next_x) if self.is_a?(King)
         squares << knight_squares(next_y, next_x) if self.is_a?(Knight)
@@ -81,19 +81,19 @@ class Piece
 
     #A recursive method to gather all legal squares
     def gather_squares(y, x, direction)
-      #Base case if coordinates go off of the board   
+      #Base case if coordinates go off of the board
       return [] if y < 0 || y > 7 || x < 0 || x > 7
 
       square = grid[y][x]
-      
+
       if square.value.is_a?(Piece)
         if square.value.color == self.color
           update_protected_pieces(square.value)
           return []
         elsif square.value.color != self.color
-          return [square] 
+          return [square]
         end
-      else  
+      else
         next_y = y + direction[0]
         next_x = x + direction[1]
 
@@ -102,20 +102,20 @@ class Piece
     end
 
     def knight_squares(y, x)
-      #Ensures we don't go off of the board   
+      #Ensures we don't go off of the board
       unless y < 0 || y > 7 || x < 0 || x > 7
 
         square = grid[y][x]
-  
+
         return square if square.value.is_a?(Piece) && square.value.color != self.color
-      
+
         return square if square.value == "_"
 
         #This value will be flattened in its squares array
         #Without this line the return value would be nil causing a bug
         if square.value.is_a?(Piece) && square.value.color == self.color
           update_protected_pieces(square.value)
-          return [] 
+          return []
         end
       else
         #If we go off the grid
@@ -127,8 +127,8 @@ class Piece
 
     #Any pieces that were once protected by self are deleted
     def clear_protected_pieces
-      self.protecting.each do |piece| 
-        piece.protected_by.delete(self) 
+      self.protecting.each do |piece|
+        piece.protected_by.delete(self)
         piece.protected = false if piece.protected_by.empty?
       end
 
@@ -136,17 +136,17 @@ class Piece
     end
 
     def update_protected_pieces(piece)
-      piece.protected_by.push(self) 
+      piece.protected_by.push(self)
       piece.protected = true
-      self.protecting.push(piece) 
+      self.protecting.push(piece)
     end
 
-    def discard_squares(squares)  
+    def discard_squares(squares)
       peaceful_squares = @moves - squares
       peaceful_squares.each { |sq| sq.attacked_by.delete(self) }
     end
 
-    def assign_attacker(squares)    
+    def assign_attacker(squares)
       squares.each { |sq| sq.attacked_by.push(self) }
     end
 end
