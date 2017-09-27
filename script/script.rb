@@ -12,7 +12,7 @@ player2 = nil
 
 
 if number.to_i == 2
-  
+
   puts "What is Player 1's name?"
 
   name = gets.chomp
@@ -30,10 +30,4 @@ end
 
 players = [player1, player2]
 
-Game.new(players).play
-
-
-
-
-
-
+Game.new(:players => players).play
