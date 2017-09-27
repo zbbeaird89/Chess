@@ -6,6 +6,17 @@ class Board
    @squares = notations_to_squares(@grid)
   end
 
+  def formatted_grid
+    @grid.each_with_index do |row, i|
+      output = row.map do |sq|
+        sq.value.is_a?(Piece) ? sq.value.icon : sq.value
+      end
+      puts "#{8 - i}   " + output.join("|")
+    end
+    puts ""
+    puts "    A B C D E F G H"
+  end
+
   private
 
     def default_grid
