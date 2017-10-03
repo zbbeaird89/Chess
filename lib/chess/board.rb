@@ -1,9 +1,10 @@
 class Board
-  attr_reader :grid, :squares
+  attr_reader :grid, :squares, :pieces
 
   def initialize
-   @grid = default_grid
+   @grid    = default_grid
    @squares = notations_to_squares(@grid)
+   @pieces  = []
   end
 
   def formatted_grid
@@ -15,6 +16,14 @@ class Board
     end
     puts ""
     puts "    A B C D E F G H"
+  end
+
+  def track_pieces
+    @squares.each do |notation, square|
+      if square.value.is_a?(Piece) && !square.value.is_a?(King)
+        @pieces.push(square.value)
+      end
+    end
   end
 
   private
