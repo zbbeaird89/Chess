@@ -1,10 +1,11 @@
 class Board
-  attr_reader :grid, :squares, :pieces
+  attr_reader :grid, :squares, :pieces, :kings
 
   def initialize
    @grid    = default_grid
    @squares = notations_to_squares(@grid)
    @pieces  = []
+   @kings   = []
   end
 
   def formatted_grid
@@ -20,7 +21,9 @@ class Board
 
   def track_pieces
     @squares.each do |notation, square|
-      if square.value.is_a?(Piece) && !square.value.is_a?(King)
+      if square.value.is_a?(King)
+        @kings.push(square.value)
+      elsif square.value.is_a?(Piece) #All pieces that aren't kings
         @pieces.push(square.value)
       end
     end

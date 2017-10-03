@@ -66,7 +66,7 @@ describe Board do
       expect(board.pieces).to include(rook, queen, knight)
     end
 
-    it "doesn't store a King" do
+    it "doesn't store a King in @pieces" do
       board = Board.new
 
       king  = King.new(:square => board.squares["E1"],
@@ -78,6 +78,20 @@ describe Board do
       board.track_pieces
 
       expect(board.pieces).to be_empty
+    end
+
+    it "stores a King in @kings" do
+      board = Board.new
+
+      king  = King.new(:square => board.squares["E1"],
+                       :player => player,
+                       :color  => player.color)
+
+      board.squares["E1"].value = king
+
+      board.track_pieces
+
+      expect(board.kings).to include(king)
     end
   end
 end
