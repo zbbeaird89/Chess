@@ -5,7 +5,7 @@ class King < Piece
     super(input)
     @directions = [[0, -1], [-1, -1], [-1, 0], [-1, 1],
                    [0, 1], [1, 1], [1, 0], [1, -1]]
-    @icon = @color == :white ? "\u2654".encode("utf-8") : "\u265A".encode("utf-8")
+    @icon = @color == :black ? "\u2654".encode("utf-8") : "\u265A".encode("utf-8")
   end
 
   def check?

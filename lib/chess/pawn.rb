@@ -3,7 +3,7 @@ class Pawn < Piece
 
   def initialize(input)
     super(input)
-    @icon = @color == :white ? "\u2659".encode("utf-8") : "\u265F".encode("utf-8")
+    @icon = @color == :black ? "\u2659".encode("utf-8") : "\u265F".encode("utf-8")
   end
 
   private
