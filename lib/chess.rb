@@ -1,3 +1,6 @@
+require "pry"
+require "pry-nav"
+
 require_relative "./chess/square.rb"
 require_relative "./chess/piece.rb"
 require_relative "./chess/player.rb"
@@ -10,5 +13,3 @@ require_relative "./chess/queen.rb"
 require_relative "./chess/king.rb"
 require_relative "./chess/game.rb"
 require_relative "./chess/core_extensions.rb"
-
-
