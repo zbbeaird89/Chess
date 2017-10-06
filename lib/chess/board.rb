@@ -29,6 +29,27 @@ class Board
     end
   end
 
+  def all_moves
+    @pieces.each { |piece| piece.find_moves }
+    validate_king_moves
+  end
+
+  def validate_king_moves
+    @kings.each { |king| king.find_moves }
+    king1_moves = @kings[0].moves
+    king2_moves = @kings[1].moves
+
+    duplicates = king1_moves & king2_moves
+
+    remove_duplicates(duplicates)
+  end
+
+  def remove_duplicates(duplicates)
+    duplicates.each do |duplicate|
+      @kings.each { |king| king.moves.delete(duplicate) }
+    end
+  end
+
   private
 
     def default_grid

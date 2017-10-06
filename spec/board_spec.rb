@@ -94,4 +94,29 @@ describe Board do
       expect(board.kings).to include(king)
     end
   end
+
+  describe "#validate_king_moves" do
+    it "ensures both kings can't move to same square" do
+      board = Board.new
+
+      #Has kings link to grid
+      Piece.link_to_grid(board.grid)
+
+      white_king = King.new(:square => board.squares["E4"],
+                            :player => Player.new("Zach", :white),
+                            :color  => :white)
+
+      black_king = King.new(:square => board.squares["E6"],
+                            :player => Player.new("Lauren", :black),
+                            :color  => :black)
+
+      board.squares["E4"].value = white_king
+      board.squares["E6"].value = black_king
+
+      board.track_pieces
+      board.validate_king_moves
+
+      expect(white_king.moves).to_not include(board.squares["E5"])
+    end
+  end
 end

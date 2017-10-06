@@ -23,6 +23,8 @@ class King < Piece
           piece = value
           update_protected_pieces(piece) if piece.color == self.color
           return square unless piece.color == self.color || square.attacked?
+        elsif square.attacked_by.has_king?
+          enforce_opposition(square)
         else
           return square unless square.attacked?
         end
@@ -31,7 +33,13 @@ class King < Piece
       return []
     end
 
-
-    #gather legal squares for both kings and then check to see if they have any common squares and
-    #set @attacked to false and remove those squares from king.moves
+    #Opposition in Chess is when neither king can move to a square next
+    #to the other king
+    #This method removes squares from one player's king if the other player's
+    #king found those same squares right next to it
+    #This ensures both kings aren't breaking the rules of opposition
+    def enforce_opposition(square)
+      king = square.attacked_by.select { |piece| piece.is_a?(King) }[0]
+      king.moves.delete(square)
+    end
 end
