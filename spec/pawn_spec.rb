@@ -4,6 +4,14 @@ describe Pawn do
   let(:square)       { Square.new }
   let(:player)       { Player.new("Zach", :white) }
   let(:other_player) { Player.new("Lauren", :black) }
+  let(:grid)         { [[Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                        [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                        [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                        [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                        [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                        [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                        [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new],
+                        [Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new, Square.new]] }
 
   describe "#initialize" do
     context "when given correct number of arguments" do
@@ -19,34 +27,10 @@ describe Pawn do
         expect { Pawn.new(:player => player) }.to raise_error(KeyError)
       end
     end
-
-    context "when the pawn's color is white" do
-      it "the pawn's icon is white" do
-        pawn = Pawn.new(:square => square,
-                        :player => player,
-                        :color  => player.color)
-        icon = "\u2659".encode("utf-8")
-        expect(pawn.icon).to eq icon
-      end
-    end
-
-    context "when the pawn's color is black" do
-      it "the pawn's icon is black" do
-        pawn = Pawn.new(:square => square,
-                        :player => other_player,
-                        :color  => other_player.color)
-        icon = "\u265F".encode("utf-8")
-        expect(pawn.icon).to eq icon
-      end
-    end
   end
 
   describe "#grid" do
     it "can read the grid" do
-      grid = [["", "", ""],
-              ["", "", ""],
-              ["", "", ""]]
-
       Piece.link_to_grid(grid)
 
       pawn = Pawn.new(:square => square,
@@ -86,10 +70,6 @@ describe Pawn do
 
   describe "#moves" do
     it "contains legal moves for white player" do
-      grid = [[Square.new, Square.new, Square.new],
-              [Square.new, Square.new, Square.new],
-              [Square.new, square, Square.new]]
-
       #Has all pieces link to the grid
       Piece.link_to_grid(grid)
 
@@ -98,9 +78,9 @@ describe Pawn do
                       :color  => player.color)
 
       #Pawn's starting position for this example
-      square.value = pawn
+      grid[6][4] = square
 
-      legal_moves = [grid[0][1], grid[1][1]]
+      legal_moves = [grid[5][4], grid[4][4]]
 
       #gathers all legal moves for the pawn instance(stores result in @moves)
       pawn.find_moves
@@ -109,19 +89,15 @@ describe Pawn do
     end
 
     it "contains legal moves for black player" do
-      grid = [[Square.new, square, Square.new],
-              [Square.new, Square.new, Square.new],
-              [Square.new, Square.new, Square.new]]
-
       Piece.link_to_grid(grid)
 
       pawn = Pawn.new(:square => square,
-                      :player => player,
-                      :color  => player.color)
+                      :player => other_player,
+                      :color  => other_player.color)
 
-      square.value = pawn #Pawn's starting position for this example
+      grid[1][4] = square
 
-      legal_moves = [grid[1][1], grid[2][1]]
+      legal_moves = [grid[2][4], grid[3][4]]
 
       pawn.find_moves
 
@@ -129,12 +105,11 @@ describe Pawn do
     end
 
     it "recognizes enemies at diagonals for white player" do
-      grid = [[Square.new, Square.new, Square.new],
-              [Square.new, Square.new, Square.new],
-              [Square.new, square, Square.new]]
-
       #Sets left diagonal to contain enemy piece
-      grid[1][0].value = Piece.new(:square => grid[1][0],
+      grid[5][3].value = Piece.new(:square => grid[5][3],
+                                   :player => other_player,
+                                   :color  => other_player.color)
+      grid[5][5].value = Piece.new(:square => grid[5][5],
                                    :player => other_player,
                                    :color  => other_player.color)
 
@@ -144,9 +119,10 @@ describe Pawn do
                       :player => player,
                       :color  => player.color)
 
+      grid[6][4] = square
       square.value = pawn
 
-      legal_moves = [grid[0][1], grid[1][1], grid[1][0]]
+      legal_moves = [grid[5][4], grid[4][4], grid[5][3], grid[5][5]]
 
       pawn.find_moves
 
@@ -154,24 +130,22 @@ describe Pawn do
     end
 
     it "recognizes enemies at diagonals for black player" do
-      grid = [[Square.new, square, Square.new],
-              [Square.new, Square.new, Square.new],
-              [Square.new, Square.new, Square.new]]
-
       #Sets left diagonal to contain enemy piece
-      grid[1][0].value = Piece.new(:square => grid[1][0],
+      grid[2][3].value = Piece.new(:square => grid[2][3],
                                    :player => player,
                                    :color  => player.color)
-
+      grid[2][5].value = Piece.new(:square => grid[2][5],
+                                   :player => player,
+                                   :color  => player.color)
       Piece.link_to_grid(grid)
 
       pawn = Pawn.new(:square => square,
                       :player => other_player,
                       :color  => other_player.color)
 
-      square.value = pawn
+      grid[1][4] = square
 
-      legal_moves = [grid[1][1], grid[2][1], grid[1][0]]
+      legal_moves = [grid[2][3], grid[2][5], grid[2][4], grid[3][4]]
 
       pawn.find_moves
 
@@ -182,52 +156,37 @@ describe Pawn do
   describe "#move" do
     context "when given illegal square" do
       it "returns false" do
-        grid = [[Square.new, Square.new, Square.new],
-                [Square.new, Square.new, Square.new],
-                [Square.new, square, Square.new]]
-
         Piece.link_to_grid(grid)
 
         pawn = Pawn.new(:square => square,
                         :player => player,
                         :color  => player.color)
 
-        square.value = pawn
-
-        legal_moves = [grid[0][1], grid[1][1]]
+        grid[6][4] = square
 
         pawn.find_moves
 
-        expect(pawn.move(grid[0][2])).to eq false
+        expect(pawn.move(grid[5][3])).to eq false
       end
     end
 
     it "moves piece to a legal square" do
-      grid = [[Square.new, Square.new, Square.new],
-              [Square.new, Square.new, Square.new],
-              [Square.new, square, Square.new]]
-
       Piece.link_to_grid(grid)
 
       pawn = Pawn.new(:square => square,
                       :player => player,
                       :color  => player.color)
 
-      square.value = pawn
-
-      legal_moves = [grid[0][1], grid[1][1]]
+      grid[6][4] = square
 
       pawn.find_moves
 
-      pawn.move(grid[0][1])
+      pawn.move(grid[5][4])
 
-      expect(grid[0][1].value).to eq pawn
+      expect(grid[5][4].value).to eq pawn
     end
 
     it "piece's square changes as expected" do
-      grid = [[Square.new, Square.new, Square.new],
-              [Square.new, Square.new, Square.new],
-              [Square.new, square, Square.new]]
 
       Piece.link_to_grid(grid)
 
@@ -235,15 +194,13 @@ describe Pawn do
                       :player => player,
                       :color  => player.color)
 
-      square.value = pawn
-
-      legal_moves = [grid[0][1], grid[1][1]]
+      grid[6][4] = square
 
       pawn.find_moves
 
-      pawn.move(grid[0][1])
+      pawn.move(grid[5][4])
 
-      expect(pawn.square).to eq grid[0][1]
+      expect(pawn.square).to eq grid[5][4]
     end
   end
 end

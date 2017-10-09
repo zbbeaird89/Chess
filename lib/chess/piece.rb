@@ -10,7 +10,7 @@ class Piece
   def self.link_to_grid(grid)
     @@grid = grid
   end
-  
+
 	def initialize(input)
 		@square        = input.fetch(:square)
     @player        = input.fetch(:player)
@@ -150,7 +150,3 @@ class Piece
       squares.each { |sq| sq.attacked_by.push(self) }
     end
 end
-
-
-
-# Look into if some of the methods need to be protected

@@ -8,13 +8,14 @@ class Pawn < Piece
 
   private
 
+#TODO do something about pawn.first_move
     def white_moves(y, x)
       moves = []
 
       sqs = squares_on_board(y, x)
 
       if sqs[:forward_two]
-        if sqs[:first_move] && sqs[:forward_two].value == "_"
+        if sqs[:forward_one] && sqs[:forward_two].value == "_" && self.first_move
           moves << sqs[:forward_two]
         end
       end
@@ -46,7 +47,7 @@ class Pawn < Piece
       sqs = squares_on_board(y, x)
 
       if sqs[:forward_two]
-        if sqs[:first_move] && sqs[:forward_two].value == "_"
+        if sqs[:forward_one] && sqs[:forward_two].value == "_" && self.first_move
           moves << sqs[:forward_two]
         end
       end
@@ -76,10 +77,17 @@ class Pawn < Piece
     def squares_on_board(y, x)
       directions = {}
 
-      directions[:forward_one] = grid[y + 1][x] unless y + 1 > 7
-      directions[:forward_two] = grid[y + 2][x] unless y + 2 > 7
-      directions[:left_diag]   = grid[y + 1][x - 1] unless y + 1 > 7 || x - 1 < 0
-      directions[:right_diag]  = grid[y + 1][x + 1] unless y + 1 > y || x + 1 > 7
+      if self.color == :white
+        directions[:forward_one] = grid[y - 1][x] unless y - 1 < 0
+        directions[:forward_two] = grid[y - 2][x] unless y - 2 < 0
+        directions[:left_diag]   = grid[y - 1][x + 1] unless y - 1 < 0 || x + 1 > 7
+        directions[:right_diag]  = grid[y - 1][x - 1] unless y - 1 < 0 || x - 1 < 0
+      else
+        directions[:forward_one] = grid[y + 1][x] unless y + 1 > 7
+        directions[:forward_two] = grid[y + 2][x] unless y + 2 > 7
+        directions[:left_diag]   = grid[y + 1][x - 1] unless y + 1 > 7 || x - 1 < 0
+        directions[:right_diag]  = grid[y + 1][x + 1] unless y + 1 > 7 || x + 1 > 7
+      end
 
       return directions
     end
