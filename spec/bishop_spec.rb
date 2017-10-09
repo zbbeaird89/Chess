@@ -27,26 +27,6 @@ describe Bishop do
         expect { Pawn.new(:player => player) }.to raise_error(KeyError)
       end
     end
-
-    context "when bishop's color is :white" do
-      it "bishop's icon is white" do
-        bishop = Bishop.new(:square => square,
-                            :player => player,
-                            :color  => player.color)
-        icon = "\u2657".encode("utf-8")
-        expect(bishop.icon).to eq icon
-      end
-    end
-
-    context "when bishop's color is :black" do
-      it "bishop's icon is black" do
-        bishop = Bishop.new(:square => square,
-                            :player => other_player,
-                            :color  => other_player.color)
-        icon = "\u265D".encode("utf-8")
-        expect(bishop.icon).to eq icon
-      end
-    end
   end
 
   describe "#grid" do

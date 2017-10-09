@@ -28,26 +28,6 @@ describe Knight do
         expect { Knight.new(:player => player) }.to raise_error(KeyError)
       end
     end
-
-    context "when the knight's color is white" do
-      it "the knight's icon is white" do
-        knight = Knight.new(:square => square,
-                            :player => player,
-                            :color  => player.color)
-        icon = "\u2658".encode("utf-8")
-        expect(knight.icon).to eq icon
-      end
-    end
-
-    context "when the knight's color is black" do
-      it "the knight's icon is black" do
-        knight = Knight.new(:square => square,
-                            :player => other_player,
-                            :color  => other_player.color)
-        icon = "\u265E".encode("utf-8")
-        expect(knight.icon).to eq icon
-      end
-    end
   end
 
   describe "#grid" do

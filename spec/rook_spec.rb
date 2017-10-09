@@ -28,26 +28,6 @@ describe Rook do
         expect { Rook.new(:player => player) }.to raise_error(KeyError)
       end
     end
-
-    context "when the rook's color is white" do
-      it "the rook's icon is white" do
-        rook = Rook.new(:square => square,
-                        :player => player,
-                        :color  => player.color)
-        icon = "\u2656".encode("utf-8")
-        expect(rook.icon).to eq icon
-      end
-    end
-
-    context "when the rook's color is black" do
-      it "the rook's icon is black" do
-        rook = Rook.new(:square => square,
-                        :player => other_player,
-                        :color  => other_player.color)
-        icon = "\u265C".encode("utf-8")
-        expect(rook.icon).to eq icon
-      end
-    end
   end
 
   describe "#grid" do

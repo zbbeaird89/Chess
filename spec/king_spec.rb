@@ -27,26 +27,6 @@ describe King do
         expect { King.new(:player => player) }.to raise_error(KeyError)
       end
     end
-
-    context "when king's color is white" do
-      it "the king's icon is white" do
-        king = King.new(:square => square,
-                        :player => player,
-                        :color  => player.color)
-        icon = "\u2654".encode("utf-8")
-        expect(king.icon).to eq icon
-      end
-    end
-
-    context "when king's color is black" do
-      it "the king's icon is black" do
-        king = King.new(:square => square,
-                        :player => other_player,
-                        :color  => other_player.color)
-        icon = "\u265A".encode("utf-8")
-        expect(king.icon).to eq icon
-      end
-    end
   end
 
   describe "#grid" do
