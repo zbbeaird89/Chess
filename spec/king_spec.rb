@@ -75,30 +75,6 @@ describe King do
     end
   end
 
-  describe "#check?" do
-    context "when king is in check" do
-      it "returns true" do
-        #Has all pieces link to grid
-        Piece.link_to_grid(grid)
-
-        king = King.new(:square => square,
-                        :player => player,
-                        :color  => player.color)
-
-        square.value = king
-
-        grid[0][3].value = Rook.new(:square => grid[0][3],
-                                    :player => other_player,
-                                    :color  => other_player.color)
-        rook = grid[0][3].value
-
-        rook.find_moves
-
-        expect(king.check?).to eq true
-      end
-    end
-  end
-
   describe "#moves" do
     context "when all directions contain only empty squares and they aren't attacked" do
       it "contains correct legal squares" do
@@ -258,6 +234,131 @@ describe King do
         expect(knight.protected_by).not_to include king
         expect(knight.protected?).to be false
         expect(king.protecting).to be_empty
+      end
+    end
+  end
+
+  describe "#check?" do
+    context "when king is in the line of fire" do
+      it "returns true" do
+        Piece.link_to_grid(grid)
+
+        king = King.new(:square => square,
+                        :player => player,
+                        :color  => player.color)
+
+        square.value = king
+
+        y, x = grid.coordinates(square)
+
+        #opposite color piece of king
+        grid[0][3].value = Rook.new(:square => grid[0][3],
+                                    :player => other_player,
+                                    :color  => other_player.color)
+
+        rook = grid[0][3].value
+
+        expect(king.check?(y, x)).to be true
+      end
+    end
+
+    context "when the king is not in the line of fire" do
+      it "returns false" do
+        Piece.link_to_grid(grid)
+
+        king = King.new(:square => square,
+                        :player => player,
+                        :color  => player.color)
+
+        square.value = king
+
+        y, x = grid.coordinates(square)
+
+        #same color piece as king
+        grid[0][3].value = Rook.new(:square => grid[0][3],
+                                    :player => player,
+                                    :color  => player.color)
+
+        rook = grid[0][3].value
+
+        expect(king.check?(y, x)).to be false
+      end
+    end
+
+    context "when the king is attacked by a knight" do
+      it "returns true" do
+        Piece.link_to_grid(grid)
+
+        king = King.new(:square => square,
+                        :player => player,
+                        :color  => player.color)
+
+        square.value = king
+
+        y, x = grid.coordinates(square)
+
+        #same color piece as king
+        grid[1][2].value = Knight.new(:square => grid[1][2],
+                                      :player => other_player,
+                                      :color  => other_player.color)
+
+        knight = grid[1][2].value
+
+        expect(king.check?(y, x)).to be true
+      end
+    end
+
+    context "when the king finds a knight of its own color" do
+      context "and opposite color queen is behind that piece" do
+        it "returns false" do
+          Piece.link_to_grid(grid)
+
+          king = King.new(:square => square,
+                          :player => player,
+                          :color  => player.color)
+
+          square.value = king
+
+          y, x = grid.coordinates(square)
+
+          grid[0][3].value = Queen.new(:square => grid[0][3],
+                                       :player => other_player,
+                                       :color  => other_player.color)
+
+          #same color piece as king
+          grid[1][3].value = Knight.new(:square => grid[1][3],
+                                        :player => player,
+                                        :color  => player.color)
+
+          expect(king.check?(y, x)).to be false
+        end
+      end
+    end
+
+    context "when the king finds a bishop of its own color" do
+      context "and opposite color queen is behind that piece" do
+        it "returns false" do
+          Piece.link_to_grid(grid)
+
+          king = King.new(:square => square,
+                          :player => player,
+                          :color  => player.color)
+
+          square.value = king
+
+          y, x = grid.coordinates(square)
+
+          grid[0][3].value = Queen.new(:square => grid[0][3],
+                                       :player => other_player,
+                                       :color  => other_player.color)
+
+          #same color piece as king
+          grid[1][3].value = Bishop.new(:square => grid[1][3],
+                                        :player => player,
+                                        :color  => player.color)
+
+          expect(king.check?(y, x)).to be false
+        end
       end
     end
   end
