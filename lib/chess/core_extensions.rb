@@ -8,7 +8,13 @@ class Array
     return c
   end
 
-  def has_king?
-    self.any? { |piece| piece.is_a?(King) }
+  def has_king?(curr_king)
+    self.any? do |piece|
+      if piece.is_a?(King) && piece != curr_king
+        return true
+      else
+        return false
+      end
+    end
   end
 end

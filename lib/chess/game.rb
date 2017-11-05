@@ -16,7 +16,11 @@ class Game
   def play
     #until game_over?
     board.all_moves
+
     loop do
+      king = board.kings.select { |king| king.color == @current_player.color }[0]
+
+      break if game_over(king)
 
       input = solicit_move
 
@@ -25,7 +29,7 @@ class Game
 
       initiate_move(input) #["A3", "A4"]
 
-      if in_check?
+      if in_check?(king)
         #reverts grid to what it looked like before player moved
         revert(snap_shot)
         puts "That is an illegal move. Please choose another move."
@@ -37,14 +41,36 @@ class Game
     end
   end
 
-  #TODO game_over? method and checkmate and stalemate methods
-  #checkmate will loop through board.kings and check if sq.attacked? and
-  #if king.moves.empty?
+  def game_over(king)
+    return true if checkmate?(king)
+    return true if stalemate?
+    return false
+  end
+
+  #TODO draw? or resign?
 
 
   #TODO write castle method
 
   private
+
+    def checkmate?(king)
+      if in_check?(king) && king.moves.empty?
+        board.formatted_grid
+        puts "Checkmate! #{@other_player.name} wins!"
+        return true
+      else
+        return false
+      end
+    end
+
+    def stalemate?
+      pieces = board.pieces.select { |piece| piece.color == @current_player.color  }
+      if pieces.all? { |piece| piece.moves.empty? }
+        puts "The game has ended in a Stalemate."
+        return true
+      end
+    end
 
     #returns true if move was successful
     #returns false if move causes current_player king to be in check
@@ -125,14 +151,11 @@ class Game
       @current_player, @other_player = @other_player, @current_player
     end
 
-    def in_check?
-      #loop through both kings
-      current_player_king = board.kings.select { |king| king.color == @current_player.color  }[0]
-
+    def in_check?(king)
       #find coordinates of king's square
-      y, x = board.grid.coordinates(current_player_king.square)
+      y, x = board.grid.coordinates(king.square)
       #return true if it is in trouble
-      return true if current_player_king.check?(y, x)
+      return true if king.check?(y, x)
       #return false if it is not in trouble
       return false
     end

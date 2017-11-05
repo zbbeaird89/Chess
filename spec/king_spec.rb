@@ -97,6 +97,33 @@ describe King do
       end
     end
 
+    context "when some directions contain empty squares and they are attacked by same color" do
+      it "contains correct legal squares" do
+        Piece.link_to_grid(grid)
+
+        king = King.new(:square => square,
+                        :player => player,
+                        :color  => player.color)
+
+        #king's starting position for this example
+        square.value = king
+
+        grid[3][2].value = Queen.new(:square => grid[3][2],
+                                     :player => player,
+                                     :color  => player.color)
+
+        queen = grid[3][2].value
+
+        legal_moves = [grid[2][2], grid[2][3], grid[2][4], grid[3][4],
+                       grid[4][4], grid[4][3], grid[4][2]]
+
+        queen.find_moves
+        king.find_moves
+
+        expect(king.moves).to match_array(legal_moves)
+      end
+    end
+
     context "when both white and black pieces are in the directions" do
       it "returns correct legal squares" do
         #Has all pieces link to the grid

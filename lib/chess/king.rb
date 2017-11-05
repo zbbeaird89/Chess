@@ -21,7 +21,6 @@ class King < Piece
       directions.each do |direction|
         next_y = y + direction[0]
         next_x = x + direction[1]
-
         output = true if line_of_fire?(next_y, next_x, direction, type)
       end
     end
@@ -106,16 +105,20 @@ class King < Piece
         if value.is_a?(Piece)
           piece = value
           update_protected_pieces(piece) if piece.color == self.color
-          return square unless piece.color == self.color || square.attacked?
-        elsif square.attacked_by.has_king?
+          return square unless piece.color == self.color || enemy_attacking?(square) || piece.protected?
+        elsif square.attacked_by.has_king?(self)
           enforce_opposition(square)
         else
-          #TODO remove unless condition
-          return square unless square.attacked?
+          return square
         end
       end
 
       return []
+    end
+
+    def enemy_attacking?(square)
+      return true if square.attacked_by.any? { |piece| piece.color != self.color  }
+      return false
     end
 
     #Opposition in Chess is when neither king can move to a square next
