@@ -99,7 +99,39 @@ describe Game do
         game.current_player = player2
         game.other_player   = player1
 
-        #TODO this doesn't pass in the game
+        expect(game.game_over(king)).to be true
+      end
+    end
+
+    context "when all of a player's pieces have no legal moves" do
+      it "returns true" do
+        game = Game.new(:players => players)
+
+        #white king will be in checkmate for this example
+        king = game.board.kings.select { |king| king.color == :black  }[0]
+        
+        game.board.squares["E2"].value.move(game.board.squares["E3"])
+        game.board.squares["A7"].value.move(game.board.squares["A5"])
+        game.board.squares["D1"].value.move(game.board.squares["H5"])
+        game.board.squares["A8"].value.move(game.board.squares["A6"])
+        game.board.squares["H5"].value.move(game.board.squares["A5"])
+        game.board.squares["H7"].value.move(game.board.squares["H5"])
+        game.board.squares["H2"].value.move(game.board.squares["H4"])
+        game.board.squares["A6"].value.move(game.board.squares["H6"])
+        game.board.squares["A5"].value.move(game.board.squares["C7"])
+        game.board.squares["F7"].value.move(game.board.squares["F6"])
+        game.board.squares["C7"].value.move(game.board.squares["D7"])
+        game.board.squares["E8"].value.move(game.board.squares["F7"])
+        game.board.squares["D7"].value.move(game.board.squares["B7"])
+        game.board.squares["D8"].value.move(game.board.squares["D3"])
+        game.board.squares["B7"].value.move(game.board.squares["B8"])
+        game.board.squares["D3"].value.move(game.board.squares["H7"])
+        game.board.squares["B8"].value.move(game.board.squares["C8"])
+        game.board.squares["F7"].value.move(game.board.squares["G6"])
+        game.board.squares["C8"].value.move(game.board.squares["E6"])
+
+        game.current_player = player2
+        game.other_player   = player1
 
         expect(game.game_over(king)).to be true
       end
