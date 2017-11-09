@@ -1,5 +1,6 @@
 require "pry"
 require "pry-nav"
+require "yaml"
 
 require_relative "./chess/square.rb"
 require_relative "./chess/piece.rb"

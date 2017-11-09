@@ -1,0 +1,1094 @@
+--- !ruby/object:Game
+players:
+- &1 !ruby/object:Player
+  name: zach
+  color: :white
+  points: 0
+- &2 !ruby/object:Player
+  name: lauren
+  color: :black
+  points: 0
+player1: *1
+player2: *2
+current_player: *1
+other_player: *2
+board: !ruby/object:Board
+  grid:
+  - - &3 !ruby/object:Square
+      value: &5 !ruby/object:Rook
+        square: *3
+        player: *2
+        color: :black
+        first_move: true
+        protected_by: []
+        protecting:
+        - &4 !ruby/object:Knight
+          square: &54 !ruby/object:Square
+            value: *4
+            attacked_by: []
+          player: *2
+          color: :black
+          first_move: true
+          protected_by:
+          - *5
+          protecting:
+          - &6 !ruby/object:Pawn
+            square: &64 !ruby/object:Square
+              value: *6
+              attacked_by: []
+            player: *2
+            color: :black
+            first_move: true
+            protected_by:
+            - *4
+            - &7 !ruby/object:Bishop
+              square: &55 !ruby/object:Square
+                value: *7
+                attacked_by: []
+              player: *2
+              color: :black
+              first_move: true
+              protected_by:
+              - &8 !ruby/object:Queen
+                square: &56 !ruby/object:Square
+                  value: *8
+                  attacked_by: []
+                player: *2
+                color: :black
+                first_move: true
+                protected_by:
+                - &9 !ruby/object:King
+                  square: &57 !ruby/object:Square
+                    value: *9
+                    attacked_by: []
+                  player: *2
+                  color: :black
+                  first_move: true
+                  protected_by:
+                  - *8
+                  protecting:
+                  - *8
+                  - &10 !ruby/object:Bishop
+                    square: &58 !ruby/object:Square
+                      value: *10
+                      attacked_by: []
+                    player: *2
+                    color: :black
+                    first_move: true
+                    protected_by:
+                    - *9
+                    protecting:
+                    - &11 !ruby/object:Pawn
+                      square: &66 !ruby/object:Square
+                        value: *11
+                        attacked_by: []
+                      player: *2
+                      color: :black
+                      first_move: true
+                      protected_by:
+                      - *10
+                      protecting: []
+                      moves:
+                      - &51 !ruby/object:Square
+                        value: _
+                        attacked_by:
+                        - *11
+                        - *11
+                        - *8
+                        - *11
+                      - &69 !ruby/object:Square
+                        value: _
+                        attacked_by:
+                        - *11
+                        - *11
+                        - *11
+                      points: 1
+                      icon: "♙"
+                      protected: true
+                    moves:
+                    - &44 !ruby/object:Square
+                      value: _
+                      attacked_by:
+                      - &12 !ruby/object:Pawn
+                        square: &80 !ruby/object:Square
+                          value: *12
+                          attacked_by: []
+                        player: *1
+                        color: :white
+                        first_move: true
+                        protected_by:
+                        - &13 !ruby/object:Rook
+                          square: &87 !ruby/object:Square
+                            value: *13
+                            attacked_by: []
+                          player: *1
+                          color: :white
+                          first_move: true
+                          protected_by: []
+                          protecting:
+                          - *12
+                          - &14 !ruby/object:Knight
+                            square: &88 !ruby/object:Square
+                              value: *14
+                              attacked_by: []
+                            player: *1
+                            color: :white
+                            first_move: true
+                            protected_by:
+                            - *13
+                            protecting:
+                            - &15 !ruby/object:Pawn
+                              square: &83 !ruby/object:Square
+                                value: *15
+                                attacked_by: []
+                              player: *1
+                              color: :white
+                              first_move: true
+                              protected_by:
+                              - *14
+                              - &16 !ruby/object:Bishop
+                                square: &89 !ruby/object:Square
+                                  value: *16
+                                  attacked_by: []
+                                player: *1
+                                color: :white
+                                first_move: true
+                                protected_by:
+                                - &17 !ruby/object:Queen
+                                  square: &90 !ruby/object:Square
+                                    value: *17
+                                    attacked_by: []
+                                  player: *1
+                                  color: :white
+                                  first_move: true
+                                  protected_by:
+                                  - &18 !ruby/object:King
+                                    square: &91 !ruby/object:Square
+                                      value: *18
+                                      attacked_by: []
+                                    player: *1
+                                    color: :white
+                                    first_move: true
+                                    protected_by:
+                                    - *17
+                                    protecting:
+                                    - *17
+                                    - *15
+                                    - &19 !ruby/object:Pawn
+                                      square: &84 !ruby/object:Square
+                                        value: *19
+                                        attacked_by: []
+                                      player: *1
+                                      color: :white
+                                      first_move: true
+                                      protected_by:
+                                      - *18
+                                      protecting: []
+                                      moves:
+                                      - &77 !ruby/object:Square
+                                        value: _
+                                        attacked_by:
+                                        - *19
+                                        - *19
+                                        - *19
+                                      - &23 !ruby/object:Square
+                                        value: _
+                                        attacked_by:
+                                        - *19
+                                        - &20 !ruby/object:Knight
+                                          square: &93 !ruby/object:Square
+                                            value: *20
+                                            attacked_by: []
+                                          player: *1
+                                          color: :white
+                                          first_move: true
+                                          protected_by:
+                                          - &21 !ruby/object:Rook
+                                            square: &94 !ruby/object:Square
+                                              value: *21
+                                              attacked_by: []
+                                            player: *1
+                                            color: :white
+                                            first_move: true
+                                            protected_by: []
+                                            protecting:
+                                            - *20
+                                            - &22 !ruby/object:Pawn
+                                              square: &86 !ruby/object:Square
+                                                value: *22
+                                                attacked_by: []
+                                              player: *1
+                                              color: :white
+                                              first_move: true
+                                              protected_by:
+                                              - *21
+                                              protecting: []
+                                              moves:
+                                              - &50 !ruby/object:Square
+                                                value: _
+                                                attacked_by:
+                                                - *22
+                                                - *22
+                                                - *8
+                                                - *22
+                                              - &24 !ruby/object:Square
+                                                value: _
+                                                attacked_by:
+                                                - *20
+                                                - *22
+                                                - *20
+                                                - *22
+                                                - *20
+                                                - *22
+                                              points: 1
+                                              icon: "♟"
+                                              protected: true
+                                            moves: []
+                                            points: 5
+                                            directions:
+                                            - - 0
+                                              - -1
+                                            - - -1
+                                              - 0
+                                            - - 0
+                                              - 1
+                                            - - 1
+                                              - 0
+                                            icon: "♜"
+                                          protecting: []
+                                          moves:
+                                          - *23
+                                          - *24
+                                          - &33 !ruby/object:Square
+                                            value: _
+                                            attacked_by:
+                                            - *17
+                                            - &25 !ruby/object:Bishop
+                                              square: &92 !ruby/object:Square
+                                                value: *25
+                                                attacked_by: []
+                                              player: *1
+                                              color: :white
+                                              first_move: true
+                                              protected_by:
+                                              - *18
+                                              protecting:
+                                              - &26 !ruby/object:Pawn
+                                                square: &85 !ruby/object:Square
+                                                  value: *26
+                                                  attacked_by: []
+                                                player: *1
+                                                color: :white
+                                                first_move: true
+                                                protected_by:
+                                                - *25
+                                                protecting: []
+                                                moves:
+                                                - &41 !ruby/object:Square
+                                                  value: _
+                                                  attacked_by:
+                                                  - *26
+                                                  - *17
+                                                  - *26
+                                                  - *17
+                                                  - *26
+                                                - &79 !ruby/object:Square
+                                                  value: _
+                                                  attacked_by:
+                                                  - *26
+                                                  - *26
+                                                  - *26
+                                                points: 1
+                                                icon: "♟"
+                                                protected: true
+                                              moves:
+                                              - &28 !ruby/object:Square
+                                                value: _
+                                                attacked_by:
+                                                - &27 !ruby/object:Pawn
+                                                  square: &61 !ruby/object:Square
+                                                    value: *27
+                                                    attacked_by: []
+                                                  player: *2
+                                                  color: :black
+                                                  first_move: true
+                                                  protected_by:
+                                                  - *5
+                                                  protecting: []
+                                                  moves:
+                                                  - &70 !ruby/object:Square
+                                                    value: _
+                                                    attacked_by:
+                                                    - *27
+                                                    - *27
+                                                    - *27
+                                                  - *28
+                                                  points: 1
+                                                  icon: "♙"
+                                                  protected: true
+                                                - *4
+                                                - *27
+                                                - *4
+                                                - *25
+                                                - *27
+                                                - *4
+                                                - *25
+                                              - &30 !ruby/object:Square
+                                                value: _
+                                                attacked_by:
+                                                - &29 !ruby/object:Pawn
+                                                  square: &62 !ruby/object:Square
+                                                    value: *29
+                                                    attacked_by: []
+                                                  player: *2
+                                                  color: :black
+                                                  first_move: true
+                                                  protected_by:
+                                                  - *7
+                                                  protecting: []
+                                                  moves:
+                                                  - *30
+                                                  - &68 !ruby/object:Square
+                                                    value: _
+                                                    attacked_by:
+                                                    - *29
+                                                    - *29
+                                                    - *29
+                                                  points: 1
+                                                  icon: "♙"
+                                                  protected: true
+                                                - *29
+                                                - *25
+                                                - *29
+                                                - *25
+                                              - &32 !ruby/object:Square
+                                                value: _
+                                                attacked_by:
+                                                - &31 !ruby/object:Pawn
+                                                  square: &82 !ruby/object:Square
+                                                    value: *31
+                                                    attacked_by: []
+                                                  player: *1
+                                                  color: :white
+                                                  first_move: true
+                                                  protected_by:
+                                                  - *17
+                                                  protecting: []
+                                                  moves:
+                                                  - *32
+                                                  - &45 !ruby/object:Square
+                                                    value: _
+                                                    attacked_by:
+                                                    - *14
+                                                    - *31
+                                                    - *14
+                                                    - *31
+                                                    - *14
+                                                    - *31
+                                                  points: 1
+                                                  icon: "♟"
+                                                  protected: true
+                                                - *31
+                                                - *25
+                                                - *31
+                                                - *25
+                                              - &43 !ruby/object:Square
+                                                value: _
+                                                attacked_by:
+                                                - *15
+                                                - *15
+                                                - *25
+                                                - *15
+                                                - *25
+                                              - *33
+                                              points: 3
+                                              directions:
+                                              - - -1
+                                                - -1
+                                              - - -1
+                                                - 1
+                                              - - 1
+                                                - -1
+                                              - - 1
+                                                - 1
+                                              icon: "♝"
+                                              protected: true
+                                            - *20
+                                            - *18
+                                            - *17
+                                            - *25
+                                            - *20
+                                            - *18
+                                          points: 3
+                                          directions:
+                                          - - -2
+                                            - -1
+                                          - - -2
+                                            - 1
+                                          - - -1
+                                            - 2
+                                          - - 1
+                                            - 2
+                                          - - 2
+                                            - 1
+                                          - - 2
+                                            - -1
+                                          - - 1
+                                            - -2
+                                          - - -1
+                                            - -2
+                                          icon: "♞"
+                                          protected: true
+                                        - *17
+                                        - *19
+                                        - *20
+                                        - *17
+                                        - *19
+                                        - *20
+                                      points: 1
+                                      icon: "♟"
+                                      protected: true
+                                    - *25
+                                    moves:
+                                    - *33
+                                    points: 1
+                                    directions:
+                                    - - 0
+                                      - -1
+                                    - - -1
+                                      - -1
+                                    - - -1
+                                      - 0
+                                    - - -1
+                                      - 1
+                                    - - 0
+                                      - 1
+                                    - - 1
+                                      - 1
+                                    - - 1
+                                      - 0
+                                    - - 1
+                                      - -1
+                                    icon: "♚"
+                                    protected: true
+                                  protecting:
+                                  - *16
+                                  - *31
+                                  - *15
+                                  - *18
+                                  moves:
+                                  - &39 !ruby/object:Square
+                                    value: _
+                                    attacked_by:
+                                    - &34 !ruby/object:Pawn
+                                      square: &67 !ruby/object:Square
+                                        value: *34
+                                        attacked_by: []
+                                      player: *2
+                                      color: :black
+                                      first_move: true
+                                      protected_by:
+                                      - &35 !ruby/object:Rook
+                                        square: &60 !ruby/object:Square
+                                          value: *35
+                                          attacked_by: []
+                                        player: *2
+                                        color: :black
+                                        first_move: true
+                                        protected_by: []
+                                        protecting:
+                                        - &36 !ruby/object:Knight
+                                          square: &59 !ruby/object:Square
+                                            value: *36
+                                            attacked_by: []
+                                          player: *2
+                                          color: :black
+                                          first_move: true
+                                          protected_by:
+                                          - *35
+                                          protecting: []
+                                          moves:
+                                          - &40 !ruby/object:Square
+                                            value: _
+                                            attacked_by:
+                                            - *36
+                                            - *34
+                                            - *36
+                                            - *34
+                                            - *36
+                                            - *34
+                                          - &38 !ruby/object:Square
+                                            value: _
+                                            attacked_by:
+                                            - &37 !ruby/object:Pawn
+                                              square: &65 !ruby/object:Square
+                                                value: *37
+                                                attacked_by: []
+                                              player: *2
+                                              color: :black
+                                              first_move: true
+                                              protected_by:
+                                              - *9
+                                              protecting: []
+                                              moves:
+                                              - &73 !ruby/object:Square
+                                                value: _
+                                                attacked_by:
+                                                - *37
+                                                - *37
+                                                - *37
+                                              - *38
+                                              points: 1
+                                              icon: "♙"
+                                              protected: true
+                                            - *36
+                                            - *37
+                                            - *36
+                                            - *8
+                                            - *37
+                                            - *36
+                                          - &49 !ruby/object:Square
+                                            value: _
+                                            attacked_by:
+                                            - *8
+                                            - *10
+                                            - *36
+                                            - *9
+                                          points: 3
+                                          directions:
+                                          - - -2
+                                            - -1
+                                          - - -2
+                                            - 1
+                                          - - -1
+                                            - 2
+                                          - - 1
+                                            - 2
+                                          - - 2
+                                            - 1
+                                          - - 2
+                                            - -1
+                                          - - 1
+                                            - -2
+                                          - - -1
+                                            - -2
+                                          icon: "♘"
+                                          protected: true
+                                        - *34
+                                        moves: []
+                                        points: 5
+                                        directions:
+                                        - - 0
+                                          - -1
+                                        - - -1
+                                          - 0
+                                        - - 0
+                                          - 1
+                                        - - 1
+                                          - 0
+                                        icon: "♖"
+                                      protecting: []
+                                      moves:
+                                      - *39
+                                      - *40
+                                      points: 1
+                                      icon: "♙"
+                                      protected: true
+                                    - *17
+                                    - *34
+                                    - *17
+                                    - *34
+                                  - *41
+                                  - *23
+                                  - *33
+                                  points: 9
+                                  directions:
+                                  - - 0
+                                    - -1
+                                  - - -1
+                                    - -1
+                                  - - -1
+                                    - 0
+                                  - - -1
+                                    - 1
+                                  - - 0
+                                    - 1
+                                  - - 1
+                                    - 1
+                                  - - 1
+                                    - 0
+                                  - - 1
+                                    - -1
+                                  icon: "♛"
+                                  protected: true
+                                protecting:
+                                - &42 !ruby/object:Pawn
+                                  square: &81 !ruby/object:Square
+                                    value: *42
+                                    attacked_by: []
+                                  player: *1
+                                  color: :white
+                                  first_move: true
+                                  protected_by:
+                                  - *16
+                                  protecting: []
+                                  moves:
+                                  - &46 !ruby/object:Square
+                                    value: _
+                                    attacked_by:
+                                    - *42
+                                    - *42
+                                    - *42
+                                    - *10
+                                  - &78 !ruby/object:Square
+                                    value: _
+                                    attacked_by:
+                                    - *42
+                                    - *42
+                                    - *42
+                                  points: 1
+                                  icon: "♟"
+                                  protected: true
+                                - *15
+                                moves: []
+                                points: 3
+                                directions:
+                                - - -1
+                                  - -1
+                                - - -1
+                                  - 1
+                                - - 1
+                                  - -1
+                                - - 1
+                                  - 1
+                                icon: "♝"
+                                protected: true
+                              - *17
+                              - *18
+                              protecting: []
+                              moves:
+                              - &75 !ruby/object:Square
+                                value: _
+                                attacked_by:
+                                - *15
+                                - *15
+                                - *15
+                              - *43
+                              points: 1
+                              icon: "♟"
+                              protected: true
+                            moves:
+                            - *44
+                            - *45
+                            points: 3
+                            directions:
+                            - - -2
+                              - -1
+                            - - -2
+                              - 1
+                            - - -1
+                              - 2
+                            - - 1
+                              - 2
+                            - - 2
+                              - 1
+                            - - 2
+                              - -1
+                            - - 1
+                              - -2
+                            - - -1
+                              - -2
+                            icon: "♞"
+                            protected: true
+                          moves: []
+                          points: 5
+                          directions:
+                          - - 0
+                            - -1
+                          - - -1
+                            - 0
+                          - - 0
+                            - 1
+                          - - 1
+                            - 0
+                          icon: "♜"
+                        protecting: []
+                        moves:
+                        - &74 !ruby/object:Square
+                          value: _
+                          attacked_by:
+                          - *12
+                          - *12
+                          - *12
+                        - *44
+                        points: 1
+                        icon: "♟"
+                        protected: true
+                      - *14
+                      - *12
+                      - *14
+                      - *12
+                      - *14
+                      - *10
+                    - *46
+                    - &48 !ruby/object:Square
+                      value: _
+                      attacked_by:
+                      - &47 !ruby/object:Pawn
+                        square: &63 !ruby/object:Square
+                          value: *47
+                          attacked_by: []
+                        player: *2
+                        color: :black
+                        first_move: true
+                        protected_by:
+                        - *8
+                        protecting: []
+                        moves:
+                        - *48
+                        - &53 !ruby/object:Square
+                          value: _
+                          attacked_by:
+                          - *4
+                          - *47
+                          - *4
+                          - *47
+                          - *4
+                          - *47
+                        points: 1
+                        icon: "♙"
+                        protected: true
+                      - *47
+                      - *47
+                      - *10
+                    - &52 !ruby/object:Square
+                      value: _
+                      attacked_by:
+                      - *6
+                      - *6
+                      - *6
+                      - *10
+                    - *49
+                    points: 3
+                    directions:
+                    - - -1
+                      - -1
+                    - - -1
+                      - 1
+                    - - 1
+                      - -1
+                    - - 1
+                      - 1
+                    icon: "♗"
+                    protected: true
+                  - *37
+                  - *6
+                  moves:
+                  - *49
+                  points: 1
+                  directions:
+                  - - 0
+                    - -1
+                  - - -1
+                    - -1
+                  - - -1
+                    - 0
+                  - - -1
+                    - 1
+                  - - 0
+                    - 1
+                  - - 1
+                    - 1
+                  - - 1
+                    - 0
+                  - - 1
+                    - -1
+                  icon: "♔"
+                  protected: true
+                protecting:
+                - *7
+                - *9
+                - *6
+                - *47
+                moves:
+                - *50
+                - *51
+                - *38
+                - *49
+                points: 9
+                directions:
+                - - 0
+                  - -1
+                - - -1
+                  - -1
+                - - -1
+                  - 0
+                - - -1
+                  - 1
+                - - 0
+                  - 1
+                - - 1
+                  - 1
+                - - 1
+                  - 0
+                - - 1
+                  - -1
+                icon: "♕"
+                protected: true
+              protecting:
+              - *29
+              - *6
+              moves: []
+              points: 3
+              directions:
+              - - -1
+                - -1
+              - - -1
+                - 1
+              - - 1
+                - -1
+              - - 1
+                - 1
+              icon: "♗"
+              protected: true
+            - *8
+            - *9
+            protecting: []
+            moves:
+            - &71 !ruby/object:Square
+              value: _
+              attacked_by:
+              - *6
+              - *6
+              - *6
+            - *52
+            points: 1
+            icon: "♙"
+            protected: true
+          moves:
+          - *53
+          - *28
+          points: 3
+          directions:
+          - - -2
+            - -1
+          - - -2
+            - 1
+          - - -1
+            - 2
+          - - 1
+            - 2
+          - - 2
+            - 1
+          - - 2
+            - -1
+          - - 1
+            - -2
+          - - -1
+            - -2
+          icon: "♘"
+          protected: true
+        - *27
+        moves: []
+        points: 5
+        directions:
+        - - 0
+          - -1
+        - - -1
+          - 0
+        - - 0
+          - 1
+        - - 1
+          - 0
+        icon: "♖"
+      attacked_by: []
+    - *54
+    - *55
+    - *56
+    - *57
+    - *58
+    - *59
+    - *60
+  - - *61
+    - *62
+    - *63
+    - *64
+    - *49
+    - *65
+    - *66
+    - *67
+  - - *28
+    - *68
+    - *53
+    - *52
+    - &96 !ruby/object:Square
+      value: _
+      attacked_by: []
+    - *38
+    - *69
+    - *40
+  - - *70
+    - *30
+    - *48
+    - *71
+    - &72 !ruby/object:Square
+      value: &98 !ruby/object:Pawn
+        square: *72
+        player: *2
+        color: :black
+        first_move: false
+        protected_by: []
+        protecting: []
+        moves: []
+        points: 1
+        icon: "♙"
+        protected: false
+      attacked_by: []
+    - *73
+    - *51
+    - *39
+  - - *74
+    - *46
+    - *32
+    - *75
+    - &76 !ruby/object:Square
+      value: &97 !ruby/object:Pawn
+        square: *76
+        player: *1
+        color: :white
+        first_move: false
+        protected_by: []
+        protecting: []
+        moves: []
+        points: 1
+        icon: "♟"
+        protected: false
+      attacked_by: []
+    - *77
+    - *41
+    - *50
+  - - *44
+    - *78
+    - *45
+    - *43
+    - &95 !ruby/object:Square
+      value: _
+      attacked_by: []
+    - *23
+    - *79
+    - *24
+  - - *80
+    - *81
+    - *82
+    - *83
+    - *33
+    - *84
+    - *85
+    - *86
+  - - *87
+    - *88
+    - *89
+    - *90
+    - *91
+    - *92
+    - *93
+    - *94
+  squares:
+    A1: *87
+    A2: *80
+    A3: *44
+    A4: *74
+    A5: *70
+    A6: *28
+    A7: *61
+    A8: *3
+    B1: *88
+    B2: *81
+    B3: *78
+    B4: *46
+    B5: *30
+    B6: *68
+    B7: *62
+    B8: *54
+    C1: *89
+    C2: *82
+    C3: *45
+    C4: *32
+    C5: *48
+    C6: *53
+    C7: *63
+    C8: *55
+    D1: *90
+    D2: *83
+    D3: *43
+    D4: *75
+    D5: *71
+    D6: *52
+    D7: *64
+    D8: *56
+    E1: *91
+    E2: *33
+    E3: *95
+    E4: *76
+    E5: *72
+    E6: *96
+    E7: *49
+    E8: *57
+    F1: *92
+    F2: *84
+    F3: *23
+    F4: *77
+    F5: *73
+    F6: *38
+    F7: *65
+    F8: *58
+    G1: *93
+    G2: *85
+    G3: *79
+    G4: *41
+    G5: *51
+    G6: *69
+    G7: *66
+    G8: *59
+    H1: *94
+    H2: *86
+    H3: *24
+    H4: *50
+    H5: *39
+    H6: *40
+    H7: *67
+    H8: *60
+  pieces:
+  - *13
+  - *12
+  - *27
+  - *5
+  - *14
+  - *42
+  - *29
+  - *4
+  - *16
+  - *31
+  - *47
+  - *7
+  - *17
+  - *15
+  - *6
+  - *8
+  - *97
+  - *98
+  - *25
+  - *19
+  - *37
+  - *10
+  - *20
+  - *26
+  - *11
+  - *36
+  - *21
+  - *22
+  - *34
+  - *35
+  kings:
+  - *18
+  - *9

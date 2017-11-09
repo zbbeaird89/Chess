@@ -47,6 +47,8 @@ class Game
     return false
   end
 
+  #TODO save and load game
+
   #TODO draw? or resign?
 
 
@@ -87,20 +89,40 @@ class Game
       board.formatted_grid
 
       puts "It's #{@current_player.name}'s turn."
+      puts "[Type 'S' to save game. Type 'L' to load game.]"
 
-      start_sq = gets.chomp
-      end_sq   = gets.chomp
+      input = gets.chomp
 
-      start_sq[0] = start_sq[0].upcase
-      end_sq[0]   = end_sq[0].upcase
-
-      if legal_move?(start_sq, end_sq)
-        return [start_sq, end_sq]
-      else
-        puts "There was a legal move that was attempted. Please select"
-        puts "a different move."
+      if input == "S"
+        save_game
         solicit_move
+      else
+        start_sq = input
+        end_sq   = gets.chomp
+        
+        start_sq[0] = start_sq[0].upcase
+        end_sq[0]   = end_sq[0].upcase
+
+        if legal_move?(start_sq, end_sq)
+          return [start_sq, end_sq]
+        else
+          puts "There was an illegal move that was attempted. Please select"
+          puts "a different move."
+          solicit_move
+        end
       end
+    end
+
+    def save_game
+      puts "Which file would you like to save to? [1, 2, 3]"
+
+      file = gets.chomp
+
+      File.open("save_files/save#{file}.yml", "w") do |f|
+        f.write YAML::dump(self)
+      end
+
+      solicit_move
     end
 
     def legal_move?(start_sq, end_sq)

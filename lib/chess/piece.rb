@@ -70,7 +70,7 @@ class Piece
       @directions.each do |direction|
         next_y = y + direction[0]
         next_x = x + direction[1]
-        
+				
         squares << gather_squares(next_y, next_x, direction) unless self.is_a?(Knight) || self.is_a?(King)
         squares << king_squares(next_y, next_x) if self.is_a?(King)
         squares << knight_squares(next_y, next_x) if self.is_a?(Knight)
