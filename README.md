@@ -34,5 +34,5 @@ rspec spec/filename_spec.rb
 ## Acknowledgments
 
 * This project is part of the curriculum at [The Odin Project](https://www.theodinproject.com/lessons/ruby-final-project)
-* Thank you to the contributors over at (Pry)[https://github.com/pry/pry]. The debugger tool
+* Thank you to the contributors over at [Pry](https://github.com/pry/pry). The debugger tool
 saved me so much time and headaches.
